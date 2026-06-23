@@ -1,22 +1,33 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: LifeOS API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
-    description: Health operations
+  - name: memories
+  - name: notes
+  - name: assignments
+  - name: exams
+  - name: subjects
+  - name: achievements
+  - name: projects
+  - name: bucketlist
+  - name: friends
+  - name: journal
+  - name: mood
+  - name: stats
+  - name: futureLetters
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,13 +35,1355 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  # MEMORIES
+  /memories:
+    get:
+      operationId: listMemories
+      tags: [memories]
+      summary: List all memories
+      parameters:
+        - in: query
+          name: semester
+          schema: { type: ["integer", "null"] }
+        - in: query
+          name: tag
+          schema: { type: ["string", "null"] }
+        - in: query
+          name: year
+          schema: { type: ["integer", "null"] }
+        - in: query
+          name: search
+          schema: { type: ["string", "null"] }
+      responses:
+        "200":
+          description: List of memories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Memory"
+    post:
+      operationId: createMemory
+      tags: [memories]
+      summary: Create a memory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemoryInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Memory"
+
+  /memories/on-this-day:
+    get:
+      operationId: getOnThisDay
+      tags: [memories]
+      summary: Memories from this calendar day in past years
+      responses:
+        "200":
+          description: On this day memories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Memory"
+
+  /memories/recent:
+    get:
+      operationId: getRecentMemories
+      tags: [memories]
+      summary: Get recent memories
+      parameters:
+        - in: query
+          name: limit
+          schema: { type: integer, default: 3 }
+      responses:
+        "200":
+          description: Recent memories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Memory"
+
+  /memories/{id}:
+    get:
+      operationId: getMemory
+      tags: [memories]
+      summary: Get a memory by id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Memory
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Memory"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateMemory
+      tags: [memories]
+      summary: Update a memory
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemoryUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Memory"
+    delete:
+      operationId: deleteMemory
+      tags: [memories]
+      summary: Delete a memory
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
+  # NOTES
+  /notes:
+    get:
+      operationId: listNotes
+      tags: [notes]
+      summary: List all notes
+      parameters:
+        - in: query
+          name: group
+          schema: { type: ["string", "null"] }
+        - in: query
+          name: tag
+          schema: { type: ["string", "null"] }
+        - in: query
+          name: search
+          schema: { type: ["string", "null"] }
+      responses:
+        "200":
+          description: List of notes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Note"
+    post:
+      operationId: createNote
+      tags: [notes]
+      summary: Create a note
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NoteInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Note"
+
+  /notes/recent:
+    get:
+      operationId: getRecentNotes
+      tags: [notes]
+      summary: Get recent notes
+      parameters:
+        - in: query
+          name: limit
+          schema: { type: integer, default: 3 }
+      responses:
+        "200":
+          description: Recent notes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Note"
+
+  /notes/{id}:
+    get:
+      operationId: getNote
+      tags: [notes]
+      summary: Get a note by id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "200":
+          description: Note
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Note"
+    patch:
+      operationId: updateNote
+      tags: [notes]
+      summary: Update a note
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NoteUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Note"
+    delete:
+      operationId: deleteNote
+      tags: [notes]
+      summary: Delete a note
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
+  # SUBJECTS
+  /subjects:
+    get:
+      operationId: listSubjects
+      tags: [subjects]
+      summary: List subjects
+      parameters:
+        - in: query
+          name: semester
+          schema: { type: ["integer", "null"] }
+      responses:
+        "200":
+          description: List of subjects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Subject"
+    post:
+      operationId: createSubject
+      tags: [subjects]
+      summary: Create a subject
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubjectInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subject"
+
+  /subjects/{id}:
+    patch:
+      operationId: updateSubject
+      tags: [subjects]
+      summary: Update a subject
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubjectUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subject"
+    delete:
+      operationId: deleteSubject
+      tags: [subjects]
+      summary: Delete a subject
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
+  # ASSIGNMENTS
+  /assignments:
+    get:
+      operationId: listAssignments
+      tags: [assignments]
+      summary: List assignments
+      parameters:
+        - in: query
+          name: status
+          schema: { type: ["string", "null"] }
+        - in: query
+          name: semester
+          schema: { type: ["integer", "null"] }
+      responses:
+        "200":
+          description: List of assignments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Assignment"
+    post:
+      operationId: createAssignment
+      tags: [assignments]
+      summary: Create an assignment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssignmentInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Assignment"
+
+  /assignments/upcoming:
+    get:
+      operationId: getUpcomingAssignments
+      tags: [assignments]
+      summary: Get upcoming assignment/exam deadlines for home dashboard
+      parameters:
+        - in: query
+          name: limit
+          schema: { type: integer, default: 3 }
+      responses:
+        "200":
+          description: Upcoming deadlines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Assignment"
+
+  /assignments/{id}:
+    patch:
+      operationId: updateAssignment
+      tags: [assignments]
+      summary: Update an assignment
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssignmentUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Assignment"
+    delete:
+      operationId: deleteAssignment
+      tags: [assignments]
+      summary: Delete an assignment
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
+  # EXAMS
+  /exams:
+    get:
+      operationId: listExams
+      tags: [exams]
+      summary: List exams
+      parameters:
+        - in: query
+          name: semester
+          schema: { type: ["integer", "null"] }
+      responses:
+        "200":
+          description: List of exams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Exam"
+    post:
+      operationId: createExam
+      tags: [exams]
+      summary: Create an exam
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExamInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exam"
+
+  /exams/{id}:
+    patch:
+      operationId: updateExam
+      tags: [exams]
+      summary: Update an exam
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExamUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exam"
+    delete:
+      operationId: deleteExam
+      tags: [exams]
+      summary: Delete an exam
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
+  # ACHIEVEMENTS
+  /achievements:
+    get:
+      operationId: listAchievements
+      tags: [achievements]
+      summary: List achievements
+      responses:
+        "200":
+          description: List of achievements
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Achievement"
+    post:
+      operationId: createAchievement
+      tags: [achievements]
+      summary: Create an achievement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AchievementInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Achievement"
+
+  /achievements/{id}:
+    patch:
+      operationId: updateAchievement
+      tags: [achievements]
+      summary: Update an achievement
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AchievementUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Achievement"
+    delete:
+      operationId: deleteAchievement
+      tags: [achievements]
+      summary: Delete an achievement
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
+  # PROJECTS
+  /projects:
+    get:
+      operationId: listProjects
+      tags: [projects]
+      summary: List projects
+      responses:
+        "200":
+          description: List of projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+    post:
+      operationId: createProject
+      tags: [projects]
+      summary: Create a project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+
+  /projects/{id}:
+    patch:
+      operationId: updateProject
+      tags: [projects]
+      summary: Update a project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+    delete:
+      operationId: deleteProject
+      tags: [projects]
+      summary: Delete a project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
+  # BUCKET LIST
+  /bucketlist:
+    get:
+      operationId: listBucketListItems
+      tags: [bucketlist]
+      summary: List bucket list items
+      responses:
+        "200":
+          description: Bucket list items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BucketListItem"
+    post:
+      operationId: createBucketListItem
+      tags: [bucketlist]
+      summary: Create a bucket list item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BucketListItemInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BucketListItem"
+
+  /bucketlist/{id}:
+    patch:
+      operationId: updateBucketListItem
+      tags: [bucketlist]
+      summary: Update a bucket list item
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BucketListItemUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BucketListItem"
+    delete:
+      operationId: deleteBucketListItem
+      tags: [bucketlist]
+      summary: Delete a bucket list item
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
+  # FRIENDS
+  /friends:
+    get:
+      operationId: listFriends
+      tags: [friends]
+      summary: List friends
+      responses:
+        "200":
+          description: List of friends
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Friend"
+    post:
+      operationId: createFriend
+      tags: [friends]
+      summary: Create a friend record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FriendInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Friend"
+
+  /friends/{id}:
+    patch:
+      operationId: updateFriend
+      tags: [friends]
+      summary: Update a friend
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FriendUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Friend"
+    delete:
+      operationId: deleteFriend
+      tags: [friends]
+      summary: Delete a friend record
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
+  # JOURNAL
+  /journal:
+    get:
+      operationId: listJournalEntries
+      tags: [journal]
+      summary: List journal entries
+      responses:
+        "200":
+          description: Journal entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/JournalEntry"
+    post:
+      operationId: createJournalEntry
+      tags: [journal]
+      summary: Create or upsert today's journal entry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JournalEntryInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JournalEntry"
+
+  /journal/today:
+    get:
+      operationId: getTodayJournal
+      tags: [journal]
+      summary: Get today's journal entry
+      responses:
+        "200":
+          description: Today's journal entry
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JournalEntry"
+        "404":
+          description: No entry today
+
+  /journal/{id}:
+    patch:
+      operationId: updateJournalEntry
+      tags: [journal]
+      summary: Update a journal entry
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JournalEntryUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/JournalEntry"
+
+  # MOOD
+  /mood:
+    get:
+      operationId: listMoodLogs
+      tags: [mood]
+      summary: List mood log entries
+      parameters:
+        - in: query
+          name: range
+          schema: { type: ["string", "null"] }
+      responses:
+        "200":
+          description: Mood logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/MoodLog"
+    post:
+      operationId: logMood
+      tags: [mood]
+      summary: Log mood for today (upsert)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MoodLogInput"
+      responses:
+        "200":
+          description: Mood logged
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MoodLog"
+
+  # FUTURE LETTERS
+  /future-letters:
+    get:
+      operationId: listFutureLetters
+      tags: [futureLetters]
+      summary: List future letters
+      responses:
+        "200":
+          description: Future letters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FutureLetter"
+    post:
+      operationId: createFutureLetter
+      tags: [futureLetters]
+      summary: Write a future letter
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FutureLetterInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FutureLetter"
+
+  /future-letters/{id}:
+    delete:
+      operationId: deleteFutureLetter
+      tags: [futureLetters]
+      summary: Delete a future letter
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
+  # STATS
+  /stats:
+    get:
+      operationId: getStats
+      tags: [stats]
+      summary: Get aggregated statistics for reflection page
+      responses:
+        "200":
+          description: Statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Stats"
+
+  /stats/gpa:
+    get:
+      operationId: getGpaData
+      tags: [stats]
+      summary: Get GPA and CGPA trend data per semester
+      responses:
+        "200":
+          description: GPA data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GpaSemesterData"
+
 components:
   schemas:
     HealthStatus:
       type: object
       properties:
-        status:
-          type: string
-      required:
-        - status
+        status: { type: string }
+      required: [status]
 
+    Memory:
+      type: object
+      required: [id, title, date, createdAt]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        description: { type: ["string", "null"] }
+        date: { type: string }
+        location: { type: ["string", "null"] }
+        semester: { type: ["integer", "null"] }
+        tags: { type: array, items: { type: string } }
+        imageUrl: { type: ["string", "null"] }
+        createdAt: { type: string }
+
+    MemoryInput:
+      type: object
+      required: [title, date]
+      properties:
+        title: { type: string }
+        description: { type: string }
+        date: { type: string }
+        location: { type: string }
+        semester: { type: integer }
+        tags: { type: array, items: { type: string } }
+        imageUrl: { type: string }
+
+    MemoryUpdate:
+      type: object
+      properties:
+        title: { type: string }
+        description: { type: string }
+        date: { type: string }
+        location: { type: string }
+        semester: { type: integer }
+        tags: { type: array, items: { type: string } }
+        imageUrl: { type: string }
+
+    Note:
+      type: object
+      required: [id, title, group, createdAt]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        description: { type: ["string", "null"] }
+        url: { type: ["string", "null"] }
+        group: { type: string }
+        tags: { type: array, items: { type: string } }
+        createdAt: { type: string }
+
+    NoteInput:
+      type: object
+      required: [title, group]
+      properties:
+        title: { type: string }
+        description: { type: string }
+        url: { type: string }
+        group: { type: string }
+        tags: { type: array, items: { type: string } }
+
+    NoteUpdate:
+      type: object
+      properties:
+        title: { type: string }
+        description: { type: string }
+        url: { type: string }
+        group: { type: string }
+        tags: { type: array, items: { type: string } }
+
+    Subject:
+      type: object
+      required: [id, name, semester, credits]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        code: { type: ["string", "null"] }
+        semester: { type: integer }
+        credits: { type: number }
+        gradePoint: { type: ["number", "null"] }
+        grade: { type: ["string", "null"] }
+
+    SubjectInput:
+      type: object
+      required: [name, semester, credits]
+      properties:
+        name: { type: string }
+        code: { type: string }
+        semester: { type: integer }
+        credits: { type: number }
+        gradePoint: { type: number }
+        grade: { type: string }
+
+    SubjectUpdate:
+      type: object
+      properties:
+        name: { type: string }
+        code: { type: string }
+        semester: { type: integer }
+        credits: { type: number }
+        gradePoint: { type: number }
+        grade: { type: string }
+
+    Assignment:
+      type: object
+      required: [id, title, dueDate, status, createdAt]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        subjectId: { type: ["integer", "null"] }
+        subjectName: { type: ["string", "null"] }
+        dueDate: { type: string }
+        priority: { type: string }
+        status: { type: string }
+        semester: { type: ["integer", "null"] }
+        createdAt: { type: string }
+
+    AssignmentInput:
+      type: object
+      required: [title, dueDate]
+      properties:
+        title: { type: string }
+        subjectId: { type: integer }
+        dueDate: { type: string }
+        priority: { type: string }
+        status: { type: string }
+        semester: { type: integer }
+
+    AssignmentUpdate:
+      type: object
+      properties:
+        title: { type: string }
+        subjectId: { type: integer }
+        dueDate: { type: string }
+        priority: { type: string }
+        status: { type: string }
+        semester: { type: integer }
+
+    Exam:
+      type: object
+      required: [id, title, examDate, category, createdAt]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        subjectId: { type: ["integer", "null"] }
+        subjectName: { type: ["string", "null"] }
+        examDate: { type: string }
+        category: { type: string }
+        semester: { type: ["integer", "null"] }
+        grade: { type: ["string", "null"] }
+        gradePoint: { type: ["number", "null"] }
+        createdAt: { type: string }
+
+    ExamInput:
+      type: object
+      required: [title, examDate, category]
+      properties:
+        title: { type: string }
+        subjectId: { type: integer }
+        examDate: { type: string }
+        category: { type: string }
+        semester: { type: integer }
+        grade: { type: string }
+        gradePoint: { type: number }
+
+    ExamUpdate:
+      type: object
+      properties:
+        title: { type: string }
+        subjectId: { type: integer }
+        examDate: { type: string }
+        category: { type: string }
+        semester: { type: integer }
+        grade: { type: string }
+        gradePoint: { type: number }
+
+    Achievement:
+      type: object
+      required: [id, title, date, createdAt]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        description: { type: ["string", "null"] }
+        date: { type: string }
+        icon: { type: ["string", "null"] }
+        category: { type: ["string", "null"] }
+        createdAt: { type: string }
+
+    AchievementInput:
+      type: object
+      required: [title, date]
+      properties:
+        title: { type: string }
+        description: { type: string }
+        date: { type: string }
+        icon: { type: string }
+        category: { type: string }
+
+    AchievementUpdate:
+      type: object
+      properties:
+        title: { type: string }
+        description: { type: string }
+        date: { type: string }
+        icon: { type: string }
+        category: { type: string }
+
+    Project:
+      type: object
+      required: [id, title, createdAt]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        description: { type: ["string", "null"] }
+        githubUrl: { type: ["string", "null"] }
+        liveUrl: { type: ["string", "null"] }
+        tags: { type: array, items: { type: string } }
+        semester: { type: ["integer", "null"] }
+        status: { type: ["string", "null"] }
+        imageUrl: { type: ["string", "null"] }
+        createdAt: { type: string }
+
+    ProjectInput:
+      type: object
+      required: [title]
+      properties:
+        title: { type: string }
+        description: { type: string }
+        githubUrl: { type: string }
+        liveUrl: { type: string }
+        tags: { type: array, items: { type: string } }
+        semester: { type: integer }
+        status: { type: string }
+        imageUrl: { type: string }
+
+    ProjectUpdate:
+      type: object
+      properties:
+        title: { type: string }
+        description: { type: string }
+        githubUrl: { type: string }
+        liveUrl: { type: string }
+        tags: { type: array, items: { type: string } }
+        semester: { type: integer }
+        status: { type: string }
+        imageUrl: { type: string }
+
+    BucketListItem:
+      type: object
+      required: [id, text, checked, createdAt]
+      properties:
+        id: { type: integer }
+        text: { type: string }
+        checked: { type: boolean }
+        targetDate: { type: ["string", "null"] }
+        createdAt: { type: string }
+
+    BucketListItemInput:
+      type: object
+      required: [text]
+      properties:
+        text: { type: string }
+        targetDate: { type: string }
+
+    BucketListItemUpdate:
+      type: object
+      properties:
+        text: { type: string }
+        checked: { type: boolean }
+        targetDate: { type: string }
+
+    Friend:
+      type: object
+      required: [id, name, createdAt]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        department: { type: ["string", "null"] }
+        birthday: { type: ["string", "null"] }
+        firstMet: { type: ["string", "null"] }
+        notes: { type: ["string", "null"] }
+        photoUrl: { type: ["string", "null"] }
+        createdAt: { type: string }
+
+    FriendInput:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string }
+        department: { type: string }
+        birthday: { type: string }
+        firstMet: { type: string }
+        notes: { type: string }
+        photoUrl: { type: string }
+
+    FriendUpdate:
+      type: object
+      properties:
+        name: { type: string }
+        department: { type: string }
+        birthday: { type: string }
+        firstMet: { type: string }
+        notes: { type: string }
+        photoUrl: { type: string }
+
+    JournalEntry:
+      type: object
+      required: [id, date, createdAt]
+      properties:
+        id: { type: integer }
+        date: { type: string }
+        mood: { type: ["string", "null"] }
+        bestMoment: { type: ["string", "null"] }
+        learned: { type: ["string", "null"] }
+        watched: { type: ["string", "null"] }
+        randomThought: { type: ["string", "null"] }
+        createdAt: { type: string }
+
+    JournalEntryInput:
+      type: object
+      required: [date]
+      properties:
+        date: { type: string }
+        mood: { type: string }
+        bestMoment: { type: string }
+        learned: { type: string }
+        watched: { type: string }
+        randomThought: { type: string }
+
+    JournalEntryUpdate:
+      type: object
+      properties:
+        mood: { type: string }
+        bestMoment: { type: string }
+        learned: { type: string }
+        watched: { type: string }
+        randomThought: { type: string }
+
+    MoodLog:
+      type: object
+      required: [id, date, mood]
+      properties:
+        id: { type: integer }
+        date: { type: string }
+        mood: { type: string }
+
+    MoodLogInput:
+      type: object
+      required: [mood]
+      properties:
+        mood: { type: string }
+        date: { type: string }
+
+    FutureLetter:
+      type: object
+      required: [id, title, unlockDate, createdAt]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        content: { type: ["string", "null"] }
+        unlockDate: { type: string }
+        isUnlocked: { type: boolean }
+        createdAt: { type: string }
+
+    FutureLetterInput:
+      type: object
+      required: [title, unlockDate, content]
+      properties:
+        title: { type: string }
+        content: { type: string }
+        unlockDate: { type: string }
+
+    Stats:
+      type: object
+      required: [totalMemories, totalNotes, totalProjects, totalAchievements, totalFriends, totalDaysRecorded, assignmentsCompleted, assignmentsPending, bucketListTotal, bucketListCompleted]
+      properties:
+        totalMemories: { type: integer }
+        totalNotes: { type: integer }
+        totalProjects: { type: integer }
+        totalAchievements: { type: integer }
+        totalFriends: { type: integer }
+        totalDaysRecorded: { type: integer }
+        assignmentsCompleted: { type: integer }
+        assignmentsPending: { type: integer }
+        bucketListTotal: { type: integer }
+        bucketListCompleted: { type: integer }
+
+    GpaSemesterData:
+      type: object
+      required: [semester, gpa, cgpa]
+      properties:
+        semester: { type: integer }
+        gpa: { type: number }
+        cgpa: { type: number }
+        credits: { type: number }

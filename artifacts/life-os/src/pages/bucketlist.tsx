@@ -1,0 +1,115 @@
+import { useState } from "react";
+import { PageTransition } from "@/components/ui/page-transition";
+import { GlassCard } from "@/components/ui/glass";
+import { useListBucketListItems, useCreateBucketListItem, useUpdateBucketListItem, useDeleteBucketListItem } from "@workspace/api-client-react";
+import { getListBucketListItemsQueryKey } from "@workspace/api-client-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+import { Plus, X, CheckCircle, Circle, ListTodo } from "lucide-react";
+
+export default function BucketList() {
+  const queryClient = useQueryClient();
+  const { data: items = [], isLoading } = useListBucketListItems();
+  const createItem = useCreateBucketListItem();
+  const updateItem = useUpdateBucketListItem();
+  const deleteItem = useDeleteBucketListItem();
+  const [newText, setNewText] = useState("");
+  const [newDate, setNewDate] = useState("");
+  const [adding, setAdding] = useState(false);
+
+  const pending = items.filter((i: any) => !i.checked);
+  const done = items.filter((i: any) => i.checked);
+
+  const handleToggle = (item: any) => {
+    updateItem.mutate({ id: item.id, data: { checked: !item.checked } }, {
+      onSuccess: () => queryClient.invalidateQueries({ queryKey: getListBucketListItemsQueryKey() })
+    });
+  };
+
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newText.trim()) return;
+    createItem.mutate({ data: { text: newText, targetDate: newDate || undefined } }, {
+      onSuccess: () => { queryClient.invalidateQueries({ queryKey: getListBucketListItemsQueryKey() }); setNewText(""); setNewDate(""); setAdding(false); }
+    });
+  };
+
+  return (
+    <PageTransition className="space-y-8">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-4xl font-display font-bold text-white tracking-tight">Bucket List</h1>
+          <p className="text-[#A7ACC8] text-sm mt-1">{done.length} / {items.length} completed</p>
+        </div>
+        <button onClick={() => setAdding(!adding)} data-testid="button-add-bucket-item" className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#6CE5D8] to-[#9B86F2] text-[#07080F] font-semibold text-sm hover:opacity-90 transition-opacity">
+          <Plus className="w-4 h-4" /> Add Item
+        </button>
+      </div>
+
+      {/* Progress */}
+      <GlassCard className="p-5">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm font-medium text-[#A7ACC8]">Progress</span>
+          <span className="text-sm font-mono text-[#6CE5D8]">{items.length > 0 ? Math.round((done.length / items.length) * 100) : 0}%</span>
+        </div>
+        <div className="h-2 bg-black/20 rounded-full overflow-hidden">
+          <motion.div className="h-full bg-gradient-to-r from-[#6CE5D8] to-[#9B86F2] rounded-full" initial={{ width: 0 }} animate={{ width: `${items.length > 0 ? (done.length / items.length) * 100 : 0}%` }} transition={{ duration: 0.8, ease: "easeOut" }} />
+        </div>
+      </GlassCard>
+
+      {adding && (
+        <GlassCard className="p-5">
+          <form onSubmit={handleAdd} className="flex gap-3">
+            <input required className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-[#5E6386] focus:outline-none focus:border-[#6CE5D8]/50" placeholder="Something before graduation..." value={newText} onChange={e => setNewText(e.target.value)} />
+            <input type="date" className="bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none" value={newDate} onChange={e => setNewDate(e.target.value)} />
+            <button type="submit" className="px-4 py-2.5 rounded-xl bg-[#6CE5D8] text-[#07080F] font-semibold text-sm">Add</button>
+          </form>
+        </GlassCard>
+      )}
+
+      {isLoading ? (
+        <div className="space-y-3">{[1, 2, 3, 4].map(i => <div key={i} className="h-14 bg-white/5 rounded-2xl animate-pulse" />)}</div>
+      ) : (
+        <div className="space-y-8">
+          <div className="space-y-3">
+            <div className="text-xs font-mono text-[#5E6386] uppercase tracking-wider">Pending ({pending.length})</div>
+            {pending.map((item: any, i: number) => (
+              <motion.div key={item.id} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.04 }}>
+                <GlassCard className="flex items-center gap-4 p-4 cursor-pointer" onClick={() => handleToggle(item)} interactive>
+                  <Circle className="w-5 h-5 text-[#5E6386] flex-shrink-0" />
+                  <div className="flex-1">
+                    <span className="text-sm text-white">{item.text}</span>
+                    {item.targetDate && <div className="text-xs font-mono text-[#5E6386] mt-0.5">by {new Date(item.targetDate).toLocaleDateString()}</div>}
+                  </div>
+                  <button onClick={e => { e.stopPropagation(); deleteItem.mutate({ id: item.id }, { onSuccess: () => queryClient.invalidateQueries({ queryKey: getListBucketListItemsQueryKey() }) }); }} className="text-[#5E6386] hover:text-[#F2879B] transition-colors"><X className="w-4 h-4" /></button>
+                </GlassCard>
+              </motion.div>
+            ))}
+          </div>
+
+          {done.length > 0 && (
+            <div className="space-y-3">
+              <div className="text-xs font-mono text-[#5E6386] uppercase tracking-wider">Completed ({done.length})</div>
+              {done.map((item: any, i: number) => (
+                <motion.div key={item.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }}>
+                  <GlassCard className="flex items-center gap-4 p-4 cursor-pointer opacity-60" onClick={() => handleToggle(item)}>
+                    <CheckCircle className="w-5 h-5 text-[#6CE5D8] flex-shrink-0" />
+                    <span className="text-sm text-[#A7ACC8] line-through flex-1">{item.text}</span>
+                    <button onClick={e => { e.stopPropagation(); deleteItem.mutate({ id: item.id }, { onSuccess: () => queryClient.invalidateQueries({ queryKey: getListBucketListItemsQueryKey() }) }); }} className="text-[#5E6386] hover:text-[#F2879B] transition-colors"><X className="w-4 h-4" /></button>
+                  </GlassCard>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          {items.length === 0 && (
+            <div className="flex flex-col items-center py-20 text-[#5E6386]">
+              <ListTodo className="w-8 h-8 mb-3 opacity-50" />
+              <p>Add things you want to do before graduation.</p>
+            </div>
+          )}
+        </div>
+      )}
+    </PageTransition>
+  );
+}
