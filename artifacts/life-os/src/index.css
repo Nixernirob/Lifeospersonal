@@ -95,53 +95,51 @@
 
 /* LIGHT MODE */
 :root {
-  --button-outline: rgba(0,0,0, .10);
-  --badge-outline: rgba(0,0,0, .05);
-
+  --button-outline: rgba(0,0,0, .08);
+  --badge-outline: rgba(0,0,0, .06);
   --opaque-button-border-intensity: -8;
-
-  --elevate-1: rgba(0,0,0, .03);
+  --elevate-1: rgba(0,0,0, .04);
   --elevate-2: rgba(0,0,0, .08);
 
-  --background: 7 14% 5%;
-  --foreground: 232 83% 95%;
-  --card: 229 41% 12%;
-  --card-foreground: 232 83% 95%;
-  --card-border: 229 41% 15%;
-  --border: 229 41% 18%;
-  --primary: 174 72% 66%;
-  --primary-foreground: 229 41% 8%;
-  --secondary: 252 79% 74%;
-  --secondary-foreground: 232 83% 95%;
-  --accent: 252 79% 74%;
-  --accent-foreground: 232 83% 95%;
-  --muted: 229 41% 16%;
-  --muted-foreground: 229 22% 67%;
-  --sidebar: 229 41% 9%;
-  --sidebar-foreground: 232 83% 95%;
-  --sidebar-border: 229 41% 18%;
-  --sidebar-primary: 174 72% 66%;
-  --sidebar-primary-foreground: 229 41% 8%;
-  --sidebar-accent: 229 41% 16%;
-  --sidebar-accent-foreground: 232 83% 95%;
-  --sidebar-ring: 174 72% 66%;
-  --popover: 229 41% 10%;
-  --popover-foreground: 232 83% 95%;
-  --popover-border: 229 41% 18%;
-  --destructive: 350 84% 73%;
-  --destructive-foreground: 232 83% 95%;
-  --input: 229 41% 20%;
-  --ring: 174 72% 66%;
-  --chart-1: 174 72% 66%;
-  --chart-2: 252 79% 74%;
-  --chart-3: 350 84% 73%;
-  --chart-4: 43 74% 69%;
-  --chart-5: 229 41% 50%;
+  --background: 0 0% 100%;
+  --foreground: 217 33% 17%;
+  --card: 0 0% 100%;
+  --card-foreground: 217 33% 17%;
+  --card-border: 214 32% 91%;
+  --border: 214 32% 91%;
+  --primary: 215 19% 35%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222 47% 11%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --sidebar: 0 0% 100%;
+  --sidebar-foreground: 217 33% 17%;
+  --sidebar-border: 214 32% 91%;
+  --sidebar-primary: 215 19% 35%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 210 40% 96%;
+  --sidebar-accent-foreground: 217 33% 17%;
+  --sidebar-ring: 215 19% 35%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 217 33% 17%;
+  --popover-border: 214 32% 91%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --input: 214 32% 91%;
+  --ring: 215 19% 35%;
+  --chart-1: 215 19% 35%;
+  --chart-2: 252 60% 55%;
+  --chart-3: 350 70% 50%;
+  --chart-4: 43 74% 50%;
+  --chart-5: 229 41% 60%;
 
-  --accent-gold: #E8C27A;
-  --accent-coral: #F2879B;
-  --accent-cyan: #6CE5D8;
-  --accent-violet: #9B86F2;
+  --accent-gold: #C49A2A;
+  --accent-coral: #D45070;
+  --accent-cyan: #1BA89A;
+  --accent-violet: #6E50E0;
 
   --app-font-sans: 'Inter', sans-serif;
   --app-font-serif: Georgia, serif;
@@ -228,125 +226,7 @@
   --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
 }
 
-.light-theme {
-  --button-outline: rgba(0,0,0, .08);
-  --badge-outline: rgba(0,0,0, .06);
-  --opaque-button-border-intensity: -8;
-  --elevate-1: rgba(0,0,0, .04);
-  --elevate-2: rgba(0,0,0, .08);
-
-  --background: 230 40% 96%;
-  --foreground: 229 41% 12%;
-  --card: 0 0% 100%;
-  --card-foreground: 229 41% 12%;
-  --card-border: 230 30% 88%;
-  --border: 230 30% 85%;
-  --primary: 174 72% 40%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 252 60% 55%;
-  --secondary-foreground: 0 0% 100%;
-  --accent: 252 60% 55%;
-  --accent-foreground: 0 0% 100%;
-  --muted: 230 30% 92%;
-  --muted-foreground: 229 20% 45%;
-  --sidebar: 0 0% 100%;
-  --sidebar-foreground: 229 41% 12%;
-  --sidebar-border: 230 30% 88%;
-  --sidebar-primary: 174 72% 40%;
-  --sidebar-primary-foreground: 0 0% 100%;
-  --sidebar-accent: 230 30% 94%;
-  --sidebar-accent-foreground: 229 41% 12%;
-  --sidebar-ring: 174 72% 40%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 229 41% 12%;
-  --popover-border: 230 30% 88%;
-  --destructive: 350 70% 50%;
-  --destructive-foreground: 0 0% 100%;
-  --input: 230 30% 90%;
-  --ring: 174 72% 40%;
-  --chart-1: 174 72% 40%;
-  --chart-2: 252 60% 55%;
-  --chart-3: 350 70% 50%;
-  --chart-4: 43 74% 50%;
-  --chart-5: 229 41% 60%;
-
-  --accent-gold: #C49A2A;
-  --accent-coral: #D45070;
-  --accent-cyan: #1BA89A;
-  --accent-violet: #6E50E0;
-}
-
-/* Light theme overrides for glassmorphism components */
-.light-theme html,
-html.light-theme {
-  background: linear-gradient(135deg, #E8ECF9 0%, #F0EDF8 50%, #EAF0F8 100%) !important;
-  background-attachment: fixed !important;
-}
-
-.light-theme body {
-  background: transparent !important;
-  color: #1A1D2E !important;
-}
-
-/* Glass cards in light mode */
-.light-theme .glass-card,
-.light-theme [class*="glass"] {
-  background: rgba(255, 255, 255, 0.82) !important;
-  border-color: rgba(0, 0, 0, 0.07) !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04) !important;
-  backdrop-filter: blur(16px) !important;
-}
-
-/* Sidebar in light mode */
-.light-theme aside,
-.light-theme nav {
-  background: rgba(255, 255, 255, 0.92) !important;
-  border-color: rgba(0, 0, 0, 0.07) !important;
-}
-
-/* Text colors in light mode */
-.light-theme .text-white {
-  color: #1A1D2E !important;
-}
-
-.light-theme [class*="text-\[#A7ACC8\]"],
-.light-theme [class*="text-\[#5E6386\]"] {
-  color: #6B7280 !important;
-}
-
-/* Inputs in light mode */
-.light-theme input,
-.light-theme textarea,
-.light-theme select {
-  background: rgba(0, 0, 0, 0.04) !important;
-  border-color: rgba(0, 0, 0, 0.12) !important;
-  color: #1A1D2E !important;
-}
-
-.light-theme input::placeholder,
-.light-theme textarea::placeholder {
-  color: #9CA3AF !important;
-}
-
-/* Nav items in light mode */
-.light-theme a > div {
-  color: #4B5563;
-}
-
-.light-theme a > div.bg-white\/10 {
-  background: rgba(110, 80, 224, 0.1) !important;
-  color: #1A1D2E !important;
-}
-
-/* Modals backdrop */
-.light-theme .fixed.inset-0 > .absolute.inset-0 {
-  background: rgba(100, 110, 150, 0.4) !important;
-}
-
 @layer base {
-  html { background: #07080F; }
-  body { background: #07080F; color: #F1F2FA; }
-
   * {
     @apply border-border;
   }
