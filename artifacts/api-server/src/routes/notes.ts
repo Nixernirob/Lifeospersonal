@@ -40,9 +40,9 @@ router.get("/notes/recent", async (req, res) => {
 
 router.post("/notes", async (req, res) => {
   try {
-    const { title, description, url, group, tags } = req.body;
+    const { title, description, url, group, tags, imageUrl } = req.body;
     const [note] = await db.insert(notesTable).values({
-      title, description, url, group, tags: tags ?? [],
+      title, description, url, group, tags: tags ?? [], imageUrl,
     }).returning();
     res.status(201).json({ ...note, tags: note.tags ?? [] });
   } catch (err) {
@@ -64,13 +64,14 @@ router.get("/notes/:id", async (req, res) => {
 
 router.patch("/notes/:id", async (req, res) => {
   try {
-    const { title, description, url, group, tags } = req.body;
+    const { title, description, url, group, tags, imageUrl } = req.body;
     const updates: Record<string, unknown> = {};
     if (title !== undefined) updates.title = title;
     if (description !== undefined) updates.description = description;
     if (url !== undefined) updates.url = url;
     if (group !== undefined) updates.group = group;
     if (tags !== undefined) updates.tags = tags;
+    if (imageUrl !== undefined) updates.imageUrl = imageUrl;
     const [note] = await db.update(notesTable).set(updates).where(eq(notesTable.id, Number(req.params.id))).returning();
     if (!note) return res.status(404).json({ error: "Not found" });
     res.json({ ...note, tags: note.tags ?? [] });

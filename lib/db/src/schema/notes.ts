@@ -9,6 +9,7 @@ export const notesTable = pgTable("notes", {
   url: text("url"),
   group: text("group").notNull(),
   tags: json("tags").$type<string[]>().default([]),
+  imageUrl: text("image_url"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

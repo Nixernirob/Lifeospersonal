@@ -9,6 +9,7 @@ export const achievementsTable = pgTable("achievements", {
   date: text("date").notNull(),
   icon: text("icon"),
   category: text("category"),
+  imageUrl: text("image_url"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

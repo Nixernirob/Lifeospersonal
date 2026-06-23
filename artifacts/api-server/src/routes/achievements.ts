@@ -17,8 +17,8 @@ router.get("/achievements", async (req, res) => {
 
 router.post("/achievements", async (req, res) => {
   try {
-    const { title, description, date, icon, category } = req.body;
-    const [achievement] = await db.insert(achievementsTable).values({ title, description, date, icon, category }).returning();
+    const { title, description, date, icon, category, imageUrl } = req.body;
+    const [achievement] = await db.insert(achievementsTable).values({ title, description, date, icon, category, imageUrl }).returning();
     res.status(201).json(achievement);
   } catch (err) {
     req.log.error(err);
@@ -28,13 +28,14 @@ router.post("/achievements", async (req, res) => {
 
 router.patch("/achievements/:id", async (req, res) => {
   try {
-    const { title, description, date, icon, category } = req.body;
+    const { title, description, date, icon, category, imageUrl } = req.body;
     const updates: Record<string, unknown> = {};
     if (title !== undefined) updates.title = title;
     if (description !== undefined) updates.description = description;
     if (date !== undefined) updates.date = date;
     if (icon !== undefined) updates.icon = icon;
     if (category !== undefined) updates.category = category;
+    if (imageUrl !== undefined) updates.imageUrl = imageUrl;
     const [achievement] = await db.update(achievementsTable).set(updates).where(eq(achievementsTable.id, Number(req.params.id))).returning();
     if (!achievement) return res.status(404).json({ error: "Not found" });
     res.json(achievement);

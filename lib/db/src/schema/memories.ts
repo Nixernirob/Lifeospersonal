@@ -10,6 +10,7 @@ export const memoriesTable = pgTable("memories", {
   location: text("location"),
   semester: integer("semester"),
   tags: json("tags").$type<string[]>().default([]),
+  images: json("images").$type<string[]>().default([]),
   imageUrl: text("image_url"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
