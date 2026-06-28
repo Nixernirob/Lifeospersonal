@@ -93,13 +93,16 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* LIGHT MODE */
+/* ============================================================
+   LifeOS design tokens — single source of truth for theming
+   Light theme (default)
+   ============================================================ */
 :root {
-  --button-outline: rgba(0,0,0, .08);
-  --badge-outline: rgba(0,0,0, .06);
+  --button-outline: rgba(0,0,0,.08);
+  --badge-outline: rgba(0,0,0,.06);
   --opaque-button-border-intensity: -8;
-  --elevate-1: rgba(0,0,0, .04);
-  --elevate-2: rgba(0,0,0, .08);
+  --elevate-1: rgba(0,0,0,.04);
+  --elevate-2: rgba(0,0,0,.08);
 
   --background: 0 0% 100%;
   --foreground: 217 33% 17%;
@@ -136,16 +139,11 @@
   --chart-4: 43 74% 50%;
   --chart-5: 229 41% 60%;
 
-  --accent-gold: #C49A2A;
-  --accent-coral: #D45070;
-  --accent-cyan: #1BA89A;
-  --accent-violet: #6E50E0;
-
   --app-font-sans: 'Inter', sans-serif;
   --app-font-serif: Georgia, serif;
   --app-font-mono: 'JetBrains Mono', monospace;
   --font-display: 'Space Grotesk', sans-serif;
-  
+
   --radius: .5rem;
   --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
   --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
@@ -165,16 +163,50 @@
   --muted-border: hsl(from hsl(var(--muted)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
   --accent-border: hsl(from hsl(var(--accent)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
   --destructive-border: hsl(from hsl(var(--destructive)) h s calc(l + var(--opaque-button-border-intensity)) / alpha);
+
+  /* LifeOS tokens — LIGHT */
+  --los-page-bg: #F8F9FB;
+  --los-card-bg: rgba(255, 255, 255, 0.82);
+  --los-card-border: rgba(0, 0, 0, 0.07);
+  --los-card-shadow: 0 2px 16px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --los-sidebar-bg: rgba(255, 255, 255, 0.90);
+  --los-sidebar-border: rgba(0, 0, 0, 0.07);
+  --los-glass-overlay: rgba(255, 255, 255, 0.6);
+  --los-text-primary: #111827;
+  --los-text-secondary: #6B7280;
+  --los-text-muted: #9CA3AF;
+  --los-surface-1: rgba(0, 0, 0, 0.03);
+  --los-surface-2: rgba(0, 0, 0, 0.05);
+  --los-surface-3: rgba(0, 0, 0, 0.08);
+  --los-border-1: rgba(0, 0, 0, 0.06);
+  --los-border-2: rgba(0, 0, 0, 0.09);
+  --los-border-3: rgba(0, 0, 0, 0.13);
+  --los-input-bg: rgba(0, 0, 0, 0.03);
+  --los-input-border: rgba(0, 0, 0, 0.10);
+  --los-select-bg: #FFFFFF;
+  --los-progress-track: rgba(0, 0, 0, 0.06);
+  --los-blob-1: rgba(14, 165, 233, 0.07);
+  --los-blob-2: rgba(124, 58, 237, 0.06);
+  --los-blob-blend: multiply;
+  --los-cyan: #0891B2;
+  --los-violet: #7C3AED;
+  --los-coral: #E11D48;
+  --los-gold: #B45309;
+  --los-nav-active-bg: rgba(0, 0, 0, 0.06);
+  --los-nav-active-text: #111827;
+  --los-nav-active-icon: #0891B2;
+  --los-nav-inactive-text: #6B7280;
+  --los-nav-hover-bg: rgba(0, 0, 0, 0.04);
+  --los-tab-active-bg: rgba(0, 0, 0, 0.07);
+  --los-tab-active-text: #111827;
 }
 
 .dark {
-  --button-outline: rgba(255,255,255, .10);
-  --badge-outline: rgba(255,255,255, .05);
-
+  --button-outline: rgba(255,255,255,.10);
+  --badge-outline: rgba(255,255,255,.05);
   --opaque-button-border-intensity: 9;
-
-  --elevate-1: rgba(255,255,255, .04);
-  --elevate-2: rgba(255,255,255, .09);
+  --elevate-1: rgba(255,255,255,.04);
+  --elevate-2: rgba(255,255,255,.09);
 
   --background: 7 14% 5%;
   --foreground: 232 83% 95%;
@@ -211,19 +243,41 @@
   --chart-4: 43 74% 69%;
   --chart-5: 229 41% 50%;
 
-  --accent-gold: #E8C27A;
-  --accent-coral: #F2879B;
-  --accent-cyan: #6CE5D8;
-  --accent-violet: #9B86F2;
-
-  --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-md: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
-  --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+  /* LifeOS tokens — DARK */
+  --los-page-bg: #07080F;
+  --los-card-bg: rgba(18, 21, 44, 0.55);
+  --los-card-border: rgba(255, 255, 255, 0.10);
+  --los-card-shadow: none;
+  --los-sidebar-bg: rgba(13, 16, 35, 0.85);
+  --los-sidebar-border: rgba(255, 255, 255, 0.05);
+  --los-glass-overlay: rgba(255, 255, 255, 0.07);
+  --los-text-primary: #F1F2FA;
+  --los-text-secondary: #A7ACC8;
+  --los-text-muted: #5E6386;
+  --los-surface-1: rgba(255, 255, 255, 0.05);
+  --los-surface-2: rgba(255, 255, 255, 0.08);
+  --los-surface-3: rgba(255, 255, 255, 0.12);
+  --los-border-1: rgba(255, 255, 255, 0.06);
+  --los-border-2: rgba(255, 255, 255, 0.10);
+  --los-border-3: rgba(255, 255, 255, 0.18);
+  --los-input-bg: rgba(255, 255, 255, 0.05);
+  --los-input-border: rgba(255, 255, 255, 0.10);
+  --los-select-bg: #12152C;
+  --los-progress-track: rgba(0, 0, 0, 0.20);
+  --los-blob-1: rgba(108, 229, 216, 0.10);
+  --los-blob-2: rgba(155, 134, 242, 0.10);
+  --los-blob-blend: screen;
+  --los-cyan: #6CE5D8;
+  --los-violet: #9B86F2;
+  --los-coral: #F2879B;
+  --los-gold: #E8C27A;
+  --los-nav-active-bg: rgba(255, 255, 255, 0.10);
+  --los-nav-active-text: #FFFFFF;
+  --los-nav-active-icon: #6CE5D8;
+  --los-nav-inactive-text: #A7ACC8;
+  --los-nav-hover-bg: rgba(255, 255, 255, 0.05);
+  --los-tab-active-bg: rgba(255, 255, 255, 0.10);
+  --los-tab-active-text: #FFFFFF;
 }
 
 @layer base {
@@ -236,76 +290,220 @@
   }
 }
 
-/**
- * Using the elevate system.
- * Automatic contrast adjustment.
- *
- * <element className="hover-elevate" />
- * <element className="active-elevate-2" />
- *
- * // Using the tailwind utility when a data attribute is "on"
- * <element className="toggle-elevate data-[state=on]:toggle-elevated" />
- * // Or manually controlling the toggle state
- * <element className="toggle-elevate toggle-elevated" />
- *
- * Elevation systems have to handle many states.
- * - not-hovered, vs. hovered vs. active  (three mutually exclusive states)
- * - toggled or not
- * - focused or not (this is not handled with these utilities)
- *
- * Even without handling focused or not, this is six possible combinations that
- * need to be distinguished from eachother visually.
- */
+/* ============================================================
+   Light theme: comprehensive overrides for hardcoded dark colors
+   html:not(.dark) = light mode (no .dark class on <html>)
+   ============================================================ */
+
+/* --- TEXT --- */
+html:not(.dark) .text-white,
+html:not(.dark) .text-\[\#F1F2FA\] {
+  color: #111827 !important;
+}
+
+html:not(.dark) .text-\[\#A7ACC8\] {
+  color: #6B7280 !important;
+}
+
+html:not(.dark) .text-\[\#5E6386\] {
+  color: #9CA3AF !important;
+}
+
+/* Accent text — darken for light backgrounds */
+html:not(.dark) .text-\[\#6CE5D8\] {
+  color: #0891B2 !important;
+}
+html:not(.dark) .text-\[\#9B86F2\] {
+  color: #7C3AED !important;
+}
+html:not(.dark) .text-\[\#F2879B\] {
+  color: #E11D48 !important;
+}
+html:not(.dark) .text-\[\#E8C27A\] {
+  color: #B45309 !important;
+}
+html:not(.dark) .text-\[\#6CE5D8\]\/70 {
+  color: rgba(8, 145, 178, 0.80) !important;
+}
+
+/* Hover text */
+html:not(.dark) .hover\:text-white:hover {
+  color: #111827 !important;
+}
+html:not(.dark) .hover\:text-\[\#A7ACC8\]:hover {
+  color: #374151 !important;
+}
+html:not(.dark) .hover\:text-\[\#F2879B\]:hover {
+  color: #E11D48 !important;
+}
+
+/* --- BACKGROUNDS --- */
+html:not(.dark) .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+html:not(.dark) .bg-white\/10 {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+html:not(.dark) .bg-white\/15 {
+  background-color: rgba(0, 0, 0, 0.07) !important;
+}
+html:not(.dark) .bg-white\/20 {
+  background-color: rgba(0, 0, 0, 0.09) !important;
+}
+html:not(.dark) .bg-black\/20 {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+html:not(.dark) .bg-black\/60 {
+  background-color: rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Dark card / input / select backgrounds */
+html:not(.dark) .bg-\[\#12152C\] {
+  background-color: #FFFFFF !important;
+  color: #111827 !important;
+}
+html:not(.dark) .bg-\[\#12152C\]\/55 {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+}
+html:not(.dark) .bg-\[\#12152C\]\/60 {
+  background-color: rgba(255, 255, 255, 0.90) !important;
+}
+html:not(.dark) .bg-\[\#0D1023\]\/55 {
+  background-color: rgba(255, 255, 255, 0.90) !important;
+}
+
+/* Accent badge / pill backgrounds — lighten in light mode */
+html:not(.dark) .bg-\[\#6CE5D8\]\/10 {
+  background-color: rgba(8, 145, 178, 0.10) !important;
+}
+html:not(.dark) .bg-\[\#6CE5D8\]\/20 {
+  background-color: rgba(8, 145, 178, 0.15) !important;
+}
+html:not(.dark) .bg-\[\#9B86F2\]\/10 {
+  background-color: rgba(124, 58, 237, 0.10) !important;
+}
+html:not(.dark) .bg-\[\#9B86F2\]\/20 {
+  background-color: rgba(124, 58, 237, 0.15) !important;
+}
+html:not(.dark) .bg-\[\#F2879B\]\/10 {
+  background-color: rgba(225, 29, 72, 0.10) !important;
+}
+html:not(.dark) .bg-\[\#E8C27A\]\/10 {
+  background-color: rgba(180, 83, 9, 0.10) !important;
+}
+
+/* Hover backgrounds */
+html:not(.dark) .hover\:bg-white\/5:hover {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+html:not(.dark) .hover\:bg-white\/10:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+}
+html:not(.dark) .hover\:bg-white\/15:hover {
+  background-color: rgba(0, 0, 0, 0.07) !important;
+}
+html:not(.dark) .hover\:bg-white\/20:hover {
+  background-color: rgba(0, 0, 0, 0.09) !important;
+}
+html:not(.dark) .hover\:bg-\[\#6CE5D8\]\/20:hover {
+  background-color: rgba(8, 145, 178, 0.15) !important;
+}
+html:not(.dark) .hover\:bg-\[\#9B86F2\]\/20:hover {
+  background-color: rgba(124, 58, 237, 0.15) !important;
+}
+
+/* --- BORDERS --- */
+html:not(.dark) .border-white\/5 {
+  border-color: rgba(0, 0, 0, 0.05) !important;
+}
+html:not(.dark) .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+html:not(.dark) .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+html:not(.dark) .border-white\/30 {
+  border-color: rgba(0, 0, 0, 0.16) !important;
+}
+html:not(.dark) .hover\:border-white\/20:hover {
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+html:not(.dark) .hover\:border-\[\#6CE5D8\]\/50:hover {
+  border-color: rgba(8, 145, 178, 0.40) !important;
+}
+html:not(.dark) .focus\:border-\[\#6CE5D8\]\/50:focus {
+  border-color: rgba(8, 145, 178, 0.40) !important;
+}
+
+/* Accent border colors */
+html:not(.dark) .border-\[\#6CE5D8\]\/30 {
+  border-color: rgba(8, 145, 178, 0.25) !important;
+}
+html:not(.dark) .border-\[\#9B86F2\]\/30 {
+  border-color: rgba(124, 58, 237, 0.25) !important;
+}
+
+/* --- GRADIENT DECORATIVE OVERLAY inside GlassCard --- */
+html:not(.dark) .from-white\/\[0\.07\] {
+  --tw-gradient-from: rgba(255, 255, 255, 0.60) !important;
+}
+
+/* --- INPUT & SELECT FIELD text color --- */
+html:not(.dark) .placeholder-\[\#5E6386\]::placeholder {
+  color: #9CA3AF !important;
+}
+
+/* --- SELECTION color --- */
+html:not(.dark) ::selection {
+  background-color: rgba(8, 145, 178, 0.20);
+}
+
+/* --- Recharts tooltips --- */
+html:not(.dark) .recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: #FFFFFF !important;
+  border-color: rgba(0,0,0,0.08) !important;
+  color: #111827 !important;
+}
+
+/* animate-pulse-slow (ambient blobs) */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 6s ease-in-out infinite;
+}
+
+/* custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: var(--los-border-2); border-radius: 999px; }
+
 @layer utilities {
+  input[type="search"]::-webkit-search-cancel-button { @apply hidden; }
 
-  /* Hide ugly search cancel button in Chrome until we can style it properly */
-  input[type="search"]::-webkit-search-cancel-button {
-    @apply hidden;
-  }
-
-  /* Placeholder styling for contentEditable div */
   [contenteditable][data-placeholder]:empty::before {
     content: attr(data-placeholder);
     color: hsl(var(--muted-foreground));
     pointer-events: none;
   }
 
-  /* .no-default-hover-elevate/no-default-active-elevate is an escape hatch so consumers of
-   * buttons/badges can remove the automatic brightness adjustment on interactions
-   * and program their own. */
   .no-default-hover-elevate {}
-
   .no-default-active-elevate {}
 
-
-  /**
-   * Toggleable backgrounds go behind the content. Hoverable/active goes on top.
-   * This way they can stack/compound. Both will overlap the parent's borders!
-   * So borders will be automatically adjusted both on toggle, and hover/active,
-   * and they will be compounded.
-   */
   .toggle-elevate::before,
   .toggle-elevate-2::before {
     content: "";
     pointer-events: none;
     position: absolute;
     inset: 0px;
-    /*border-radius: inherit;   match rounded corners */
     border-radius: inherit;
     z-index: -1;
-    /* sits behind content but above backdrop */
   }
 
-  .toggle-elevate.toggle-elevated::before {
-    background-color: var(--elevate-2);
-  }
+  .toggle-elevate.toggle-elevated::before { background-color: var(--elevate-2); }
+  .border.toggle-elevate::before { inset: -1px; }
 
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
-  .border.toggle-elevate::before {
-    inset: -1px;
-  }
-
-  /* Does not work on elements with overflow:hidden! */
   .hover-elevate:not(.no-default-hover-elevate),
   .active-elevate:not(.no-default-active-elevate),
   .hover-elevate-2:not(.no-default-hover-elevate),
@@ -322,28 +520,19 @@
     pointer-events: none;
     position: absolute;
     inset: 0px;
-    /*border-radius: inherit;   match rounded corners */
     border-radius: inherit;
     z-index: 999;
-    /* sits in front of content */
   }
 
   .hover-elevate:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-1);
-  }
+  .active-elevate:active:not(.no-default-active-elevate)::after { background-color: var(--elevate-1); }
 
   .hover-elevate-2:hover:not(.no-default-hover-elevate)::after,
-  .active-elevate-2:active:not(.no-default-active-elevate)::after {
-    background-color: var(--elevate-2);
-  }
+  .active-elevate-2:active:not(.no-default-active-elevate)::after { background-color: var(--elevate-2); }
 
-  /* If there's a 1px border, adjust the inset so that it covers that parent's border */
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after,
   .border.active-elevate:not(.no-active-interaction-elevate)::after,
   .border.hover-elevate-2:not(.no-hover-interaction-elevate)::after,
   .border.active-elevate-2:not(.no-active-interaction-elevate)::after,
-  .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
-    inset: -1px;
-  }
+  .border.hover-elevate:not(.no-hover-interaction-elevate)::after { inset: -1px; }
 }

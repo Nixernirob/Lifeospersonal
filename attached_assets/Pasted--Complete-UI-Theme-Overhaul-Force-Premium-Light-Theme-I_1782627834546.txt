@@ -1,0 +1,283 @@
+# Complete UI Theme Overhaul (Force Premium Light Theme)
+
+## IMPORTANT
+
+Current website still using dark theme.
+
+Do NOT modify few colors.
+
+Completely REMOVE existing dark color system.
+
+Every page, component, layout, modal, popup, card, sidebar, navbar, input, table, dropdown, calendar, dashboard, chart, editor, settings page must switch to new premium light design.
+
+Search project for every dark color including
+
+```
+#000000
+#111111
+#121212
+#181818
+#1A1A1A
+#1D1D1D
+#202020
+#222222
+#242424
+#252525
+#2A2A2A
+#2D2D2D
+#333333
+bg-black
+bg-zinc-*
+bg-neutral-*
+bg-gray-900
+bg-slate-900
+dark:
+```
+
+Remove or replace all dark backgrounds.
+
+Do NOT leave any page using dark colors.
+
+---
+
+## New Global Theme
+
+Entire website should look like premium SaaS product.
+
+NOT dark.
+
+NOT gray.
+
+Bright, clean, elegant.
+
+Use
+
+```
+Page Background
+
+#FAFAFA
+
+Main Content
+
+#FFFFFF
+
+Secondary Section
+
+#F5F5F5
+
+Sidebar
+
+#FCFCFC
+
+Navbar
+
+rgba(255,255,255,0.85)
+
+Cards
+
+#FFFFFF
+
+Hover
+
+#F3F4F6
+
+Border
+
+#E7E7E7
+
+Primary Text
+
+#111827
+
+Secondary Text
+
+#6B7280
+```
+
+---
+
+## Glass Effect
+
+Navbar
+
+Sidebar
+
+Floating panels
+
+Use
+
+```
+background: rgba(255,255,255,0.72);
+
+backdrop-filter: blur(24px);
+
+border: 1px solid rgba(255,255,255,.6);
+```
+
+NOT dark glass.
+
+---
+
+## Shadows
+
+Soft only.
+
+Example
+
+```
+0 8px 30px rgba(0,0,0,.06)
+```
+
+Never use large black shadows.
+
+---
+
+## Dashboard
+
+Dashboard should feel open.
+
+Large spacing.
+
+Large white cards.
+
+Light gray background.
+
+No black widgets.
+
+---
+
+## Sidebar
+
+White.
+
+Logo top.
+
+Soft hover.
+
+Blue selected state.
+
+Rounded navigation.
+
+---
+
+## Navbar
+
+Floating.
+
+Rounded.
+
+Glass.
+
+White.
+
+Sticky.
+
+Premium.
+
+---
+
+## Cards
+
+White.
+
+Rounded.
+
+Thin border.
+
+Soft shadow.
+
+More padding.
+
+Better spacing.
+
+---
+
+## Inputs
+
+White.
+
+Gray border.
+
+Blue focus.
+
+No black fields.
+
+---
+
+## Tables
+
+White rows.
+
+Alternating subtle background.
+
+Rounded container.
+
+Sticky header.
+
+---
+
+## Modals
+
+White.
+
+Rounded 24px.
+
+Glass backdrop.
+
+Smooth animation.
+
+---
+
+## Buttons
+
+Primary
+
+Blue.
+
+Secondary
+
+White.
+
+Ghost
+
+Transparent.
+
+Danger
+
+Soft red.
+
+No dark buttons except optional destructive action.
+
+---
+
+## Animations
+
+Keep all animations.
+
+Improve smoothness.
+
+Use
+
+```
+200ms
+250ms
+300ms
+```
+
+No abrupt transitions.
+
+---
+
+## Final Requirement
+
+Website should immediately resemble premium Apple-quality software.
+
+If any page still contains dark background, replace it.
+
+Dark mode should be completely removed unless future toggle added.
+
+Every existing component must inherit new global light theme automatically using centralized design tokens, CSS variables, or theme provider.
+
+Do NOT hardcode colors per page.
+
+Create single global theme system so future theme changes require editing only one configuration.

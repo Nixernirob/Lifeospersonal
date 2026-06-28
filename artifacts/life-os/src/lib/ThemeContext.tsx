@@ -3,13 +3,14 @@ import { createContext, useContext, useEffect, useState, ReactNode } from "react
 type Theme = "dark" | "light";
 
 const ThemeContext = createContext<{ theme: Theme; setTheme: (t: Theme) => void }>({
-  theme: "dark",
+  theme: "light",
   setTheme: () => {},
 });
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>(() => {
-    return (localStorage.getItem("lifeos-theme") as Theme) || "dark";
+    const saved = localStorage.getItem("lifeos-theme") as Theme | null;
+    return saved ?? "light";
   });
 
   const setTheme = (t: Theme) => {
@@ -20,8 +21,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const html = document.documentElement;
     if (theme === "light") {
-      html.classList.add("light-theme");
       html.classList.remove("dark");
+      html.classList.add("light-theme");
     } else {
       html.classList.remove("light-theme");
       html.classList.add("dark");

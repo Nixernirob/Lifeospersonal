@@ -16,96 +16,98 @@ export default function Home() {
 
   return (
     <PageTransition className="space-y-8">
-      <header className="space-y-2 relative">
-        <h1 className="text-4xl font-display font-bold text-white tracking-tight">
+      <header className="space-y-2">
+        <h1 className="text-4xl font-display font-bold tracking-tight" style={{ color: "var(--los-text-primary)" }}>
           {getGreeting()}, Student.
         </h1>
-        <p className="text-[#A7ACC8] font-mono text-sm">
+        <p className="font-mono text-sm" style={{ color: "var(--los-text-secondary)" }}>
           {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
         </p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <GlassCard className="p-6 md:col-span-2 space-y-4">
-          <h2 className="text-xl font-display font-semibold text-white">Semester Progress</h2>
-          <div className="h-4 w-full bg-black/20 rounded-full overflow-hidden border border-white/5 relative">
-            <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#6CE5D8] to-[#9B86F2] w-[65%]" />
-          </div>
-          <div className="flex justify-between text-xs font-mono text-[#A7ACC8]">
-            <span>Week 9 / 14</span>
-            <span>65% Completed</span>
-          </div>
-        </GlassCard>
-
-        <GlassCard className="p-6 space-y-4">
-          <h2 className="text-xl font-display font-semibold text-white">Today's Mood</h2>
-          <div className="flex gap-2 justify-center py-2">
-             {/* Replace with log mood mutation later */}
-             {['Great', 'Good', 'Okay', 'Bad'].map(mood => (
-               <button key={mood} className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-sm transition-colors border border-white/10 hover:border-white/20">
-                 {mood}
-               </button>
-             ))}
-          </div>
-        </GlassCard>
-      </div>
+      <GlassCard className="p-6 space-y-4">
+        <h2 className="text-xl font-display font-semibold" style={{ color: "var(--los-text-primary)" }}>Semester Progress</h2>
+        <div className="h-3 w-full rounded-full overflow-hidden" style={{ background: "var(--los-progress-track)" }}>
+          <div
+            className="h-full bg-gradient-to-r from-[#6CE5D8] to-[#9B86F2] rounded-full transition-all duration-700"
+            style={{ width: "65%" }}
+          />
+        </div>
+        <div className="flex justify-between text-xs font-mono" style={{ color: "var(--los-text-secondary)" }}>
+          <span>Week 9 / 14</span>
+          <span>65% Completed</span>
+        </div>
+      </GlassCard>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="space-y-4">
-          <h2 className="text-xl font-display font-semibold text-white flex items-center gap-2">
+          <h2 className="text-xl font-display font-semibold flex items-center gap-2" style={{ color: "var(--los-text-primary)" }}>
             <span className="w-2 h-2 rounded-full bg-[#F2879B]" />
             Upcoming
           </h2>
           {isLoadingAssignments ? (
-            <div className="h-32 bg-white/5 rounded-2xl animate-pulse" />
+            <div className="h-32 rounded-2xl animate-pulse" style={{ background: "var(--los-surface-1)" }} />
           ) : (
             <div className="space-y-3">
               {assignments?.map(assignment => (
                 <GlassCard key={assignment.id} className="p-4" interactive>
-                  <div className="text-xs font-mono text-[#F2879B] mb-1">{new Date(assignment.dueDate).toLocaleDateString()}</div>
-                  <div className="font-medium">{assignment.title}</div>
-                  <div className="text-xs text-[#A7ACC8] mt-1">{assignment.subjectName}</div>
+                  <div className="text-xs font-mono mb-1" style={{ color: "var(--los-coral)" }}>
+                    {new Date(assignment.dueDate).toLocaleDateString()}
+                  </div>
+                  <div className="font-medium" style={{ color: "var(--los-text-primary)" }}>{assignment.title}</div>
+                  <div className="text-xs mt-1" style={{ color: "var(--los-text-secondary)" }}>{assignment.subjectName}</div>
                 </GlassCard>
               ))}
+              {assignments?.length === 0 && (
+                <p className="text-sm px-1" style={{ color: "var(--los-text-muted)" }}>No upcoming assignments.</p>
+              )}
             </div>
           )}
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-xl font-display font-semibold text-white flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#6CE5D8]" />
+          <h2 className="text-xl font-display font-semibold flex items-center gap-2" style={{ color: "var(--los-text-primary)" }}>
+            <span className="w-2 h-2 rounded-full" style={{ background: "var(--los-cyan)" }} />
             Recent Notes
           </h2>
           {isLoadingNotes ? (
-            <div className="h-32 bg-white/5 rounded-2xl animate-pulse" />
+            <div className="h-32 rounded-2xl animate-pulse" style={{ background: "var(--los-surface-1)" }} />
           ) : (
             <div className="space-y-3">
               {notes?.map(note => (
                 <GlassCard key={note.id} className="p-4" interactive>
-                  <div className="text-xs text-[#6CE5D8] mb-1">{note.group}</div>
-                  <div className="font-medium line-clamp-1">{note.title}</div>
+                  <div className="text-xs mb-1" style={{ color: "var(--los-cyan)" }}>{note.group}</div>
+                  <div className="font-medium line-clamp-1" style={{ color: "var(--los-text-primary)" }}>{note.title}</div>
                 </GlassCard>
               ))}
+              {notes?.length === 0 && (
+                <p className="text-sm px-1" style={{ color: "var(--los-text-muted)" }}>No notes yet.</p>
+              )}
             </div>
           )}
         </div>
 
         <div className="space-y-4">
-          <h2 className="text-xl font-display font-semibold text-white flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#E8C27A]" />
+          <h2 className="text-xl font-display font-semibold flex items-center gap-2" style={{ color: "var(--los-text-primary)" }}>
+            <span className="w-2 h-2 rounded-full" style={{ background: "var(--los-gold)" }} />
             Latest Memories
           </h2>
           {isLoadingMemories ? (
-            <div className="h-32 bg-white/5 rounded-2xl animate-pulse" />
+            <div className="h-32 rounded-2xl animate-pulse" style={{ background: "var(--los-surface-1)" }} />
           ) : (
             <div className="space-y-3">
               {memories?.map(memory => (
                 <GlassCard key={memory.id} className="p-4" interactive>
-                  <div className="text-xs font-mono text-[#E8C27A] mb-1">{new Date(memory.date).toLocaleDateString()}</div>
-                  <div className="font-medium line-clamp-1">{memory.title}</div>
-                  {memory.location && <div className="text-xs text-[#A7ACC8] mt-1">{memory.location}</div>}
+                  <div className="text-xs font-mono mb-1" style={{ color: "var(--los-gold)" }}>
+                    {new Date(memory.date).toLocaleDateString()}
+                  </div>
+                  <div className="font-medium line-clamp-1" style={{ color: "var(--los-text-primary)" }}>{memory.title}</div>
+                  {memory.location && <div className="text-xs mt-1" style={{ color: "var(--los-text-secondary)" }}>{memory.location}</div>}
                 </GlassCard>
               ))}
+              {memories?.length === 0 && (
+                <p className="text-sm px-1" style={{ color: "var(--los-text-muted)" }}>No memories yet.</p>
+              )}
             </div>
           )}
         </div>

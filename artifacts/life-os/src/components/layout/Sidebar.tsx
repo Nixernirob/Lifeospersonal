@@ -51,26 +51,41 @@ export function Sidebar() {
   };
 
   return (
-    <GlassPanel className="w-64 h-screen fixed left-0 top-0 flex flex-col border-r border-y-0 border-l-0 rounded-none z-50">
+    <GlassPanel className="w-64 h-screen fixed left-0 top-0 flex flex-col rounded-none z-50">
       {/* Header with profile */}
-      <div className="p-5 flex items-center gap-3 border-b border-white/5">
+      <div
+        className="p-5 flex items-center gap-3"
+        style={{ borderBottom: "1px solid var(--los-sidebar-border)" }}
+      >
         <div className="relative flex-shrink-0 group">
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-10 h-10 rounded-full overflow-hidden bg-gradient-to-br from-[#6CE5D8]/30 to-[#9B86F2]/30 border border-white/20 flex items-center justify-center hover:border-[#6CE5D8]/50 transition-colors"
+            className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all"
+            style={{
+              background: "linear-gradient(135deg, rgba(8,145,178,0.20), rgba(124,58,237,0.20))",
+              border: "1px solid var(--los-border-2)",
+            }}
           >
             {profilePic ? (
               <img src={profilePic} alt="Profile" className="w-full h-full object-cover" />
             ) : (
-              <Camera className="w-4 h-4 text-[#6CE5D8] opacity-70" />
+              <Camera className="w-4 h-4" style={{ color: "var(--los-cyan)", opacity: 0.8 }} />
             )}
           </button>
-          <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#6CE5D8] border-2 border-[#07080F] hidden group-hover:flex items-center justify-center" style={{ fontSize: "7px" }}>+</div>
+          <div
+            className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 hidden group-hover:flex items-center justify-center text-white"
+            style={{ background: "var(--los-cyan)", borderColor: "var(--los-page-bg)", fontSize: "7px" }}
+          >+</div>
           <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleProfileUpload} />
         </div>
         <div className="min-w-0">
-          <h1 className="font-display text-base font-bold tracking-tight text-white leading-tight">LifeOS</h1>
-          <p className="text-[10px] text-[#5E6386]">Second Brain</p>
+          <h1
+            className="font-display text-base font-bold tracking-tight leading-tight"
+            style={{ color: "var(--los-text-primary)" }}
+          >
+            LifeOS
+          </h1>
+          <p className="text-[10px]" style={{ color: "var(--los-text-muted)" }}>Second Brain</p>
         </div>
       </div>
 
@@ -81,13 +96,20 @@ export function Sidebar() {
             <Link key={item.href} href={item.href}>
               <div
                 className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer",
-                  isActive
-                    ? "bg-white/10 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
-                    : "text-[#A7ACC8] hover:bg-white/5 hover:text-white"
+                  "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer"
                 )}
+                style={{
+                  background: isActive ? "var(--los-nav-active-bg)" : "transparent",
+                  color: isActive ? "var(--los-nav-active-text)" : "var(--los-nav-inactive-text)",
+                  boxShadow: isActive ? "inset 0 1px 0 rgba(255,255,255,0.06)" : "none",
+                }}
+                onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLElement).style.background = "var(--los-nav-hover-bg)"; }}
+                onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLElement).style.background = "transparent"; }}
               >
-                <item.icon className={cn("w-4 h-4 flex-shrink-0", isActive ? "text-[#6CE5D8]" : "opacity-70")} />
+                <item.icon
+                  className="w-4 h-4 flex-shrink-0"
+                  style={{ color: isActive ? "var(--los-nav-active-icon)" : "var(--los-text-muted)", opacity: isActive ? 1 : 0.8 }}
+                />
                 {item.label}
               </div>
             </Link>
