@@ -34,6 +34,7 @@ export const ListMemoriesResponseItem = zod.object({
   "location": zod.string().nullish(),
   "semester": zod.number().nullish(),
   "tags": zod.array(zod.string()).optional(),
+  "images": zod.array(zod.string()).optional(),
   "imageUrl": zod.string().nullish(),
   "createdAt": zod.string()
 })
@@ -50,6 +51,7 @@ export const CreateMemoryBody = zod.object({
   "location": zod.string().optional(),
   "semester": zod.number().optional(),
   "tags": zod.array(zod.string()).optional(),
+  "images": zod.array(zod.string()).optional(),
   "imageUrl": zod.string().optional()
 })
 
@@ -65,6 +67,7 @@ export const GetOnThisDayResponseItem = zod.object({
   "location": zod.string().nullish(),
   "semester": zod.number().nullish(),
   "tags": zod.array(zod.string()).optional(),
+  "images": zod.array(zod.string()).optional(),
   "imageUrl": zod.string().nullish(),
   "createdAt": zod.string()
 })
@@ -88,6 +91,7 @@ export const GetRecentMemoriesResponseItem = zod.object({
   "location": zod.string().nullish(),
   "semester": zod.number().nullish(),
   "tags": zod.array(zod.string()).optional(),
+  "images": zod.array(zod.string()).optional(),
   "imageUrl": zod.string().nullish(),
   "createdAt": zod.string()
 })
@@ -109,6 +113,7 @@ export const GetMemoryResponse = zod.object({
   "location": zod.string().nullish(),
   "semester": zod.number().nullish(),
   "tags": zod.array(zod.string()).optional(),
+  "images": zod.array(zod.string()).optional(),
   "imageUrl": zod.string().nullish(),
   "createdAt": zod.string()
 })
@@ -128,6 +133,7 @@ export const UpdateMemoryBody = zod.object({
   "location": zod.string().optional(),
   "semester": zod.number().optional(),
   "tags": zod.array(zod.string()).optional(),
+  "images": zod.array(zod.string()).optional(),
   "imageUrl": zod.string().optional()
 })
 
@@ -139,6 +145,7 @@ export const UpdateMemoryResponse = zod.object({
   "location": zod.string().nullish(),
   "semester": zod.number().nullish(),
   "tags": zod.array(zod.string()).optional(),
+  "images": zod.array(zod.string()).optional(),
   "imageUrl": zod.string().nullish(),
   "createdAt": zod.string()
 })
@@ -181,7 +188,8 @@ export const CreateNoteBody = zod.object({
   "description": zod.string().optional(),
   "url": zod.string().optional(),
   "group": zod.string(),
-  "tags": zod.array(zod.string()).optional()
+  "tags": zod.array(zod.string()).optional(),
+  "imageUrl": zod.string().optional()
 })
 
 
@@ -236,7 +244,8 @@ export const UpdateNoteBody = zod.object({
   "description": zod.string().optional(),
   "url": zod.string().optional(),
   "group": zod.string().optional(),
-  "tags": zod.array(zod.string()).optional()
+  "tags": zod.array(zod.string()).optional(),
+  "imageUrl": zod.string().optional()
 })
 
 export const UpdateNoteResponse = zod.object({
@@ -637,6 +646,7 @@ export const ListBucketListItemsResponseItem = zod.object({
   "text": zod.string(),
   "checked": zod.boolean(),
   "targetDate": zod.string().nullish(),
+  "completedAt": zod.string().nullish(),
   "createdAt": zod.string()
 })
 export const ListBucketListItemsResponse = zod.array(ListBucketListItemsResponseItem)
@@ -647,7 +657,8 @@ export const ListBucketListItemsResponse = zod.array(ListBucketListItemsResponse
  */
 export const CreateBucketListItemBody = zod.object({
   "text": zod.string(),
-  "targetDate": zod.string().optional()
+  "targetDate": zod.string().optional(),
+  "completedAt": zod.string().optional()
 })
 
 
@@ -661,7 +672,8 @@ export const UpdateBucketListItemParams = zod.object({
 export const UpdateBucketListItemBody = zod.object({
   "text": zod.string().optional(),
   "checked": zod.boolean().optional(),
-  "targetDate": zod.string().optional()
+  "targetDate": zod.string().optional(),
+  "completedAt": zod.string().optional()
 })
 
 export const UpdateBucketListItemResponse = zod.object({
@@ -669,6 +681,7 @@ export const UpdateBucketListItemResponse = zod.object({
   "text": zod.string(),
   "checked": zod.boolean(),
   "targetDate": zod.string().nullish(),
+  "completedAt": zod.string().nullish(),
   "createdAt": zod.string()
 })
 
@@ -875,6 +888,65 @@ export const CreateFutureLetterBody = zod.object({
  * @summary Delete a future letter
  */
 export const DeleteFutureLetterParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+
+/**
+ * @summary List all semesters
+ */
+export const ListSemestersResponseItem = zod.object({
+  "id": zod.number(),
+  "name": zod.string(),
+  "startDate": zod.string().nullish(),
+  "endDate": zod.string().nullish(),
+  "status": zod.string(),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string().optional()
+})
+export const ListSemestersResponse = zod.array(ListSemestersResponseItem)
+
+
+/**
+ * @summary Create a semester
+ */
+export const CreateSemesterBody = zod.object({
+  "name": zod.string(),
+  "startDate": zod.string().optional(),
+  "endDate": zod.string().optional(),
+  "status": zod.string().optional()
+})
+
+
+/**
+ * @summary Update a semester
+ */
+export const UpdateSemesterParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const UpdateSemesterBody = zod.object({
+  "name": zod.string().optional(),
+  "startDate": zod.string().optional(),
+  "endDate": zod.string().optional(),
+  "status": zod.string().optional()
+})
+
+export const UpdateSemesterResponse = zod.object({
+  "id": zod.number(),
+  "name": zod.string(),
+  "startDate": zod.string().nullish(),
+  "endDate": zod.string().nullish(),
+  "status": zod.string(),
+  "createdAt": zod.string(),
+  "updatedAt": zod.string().optional()
+})
+
+
+/**
+ * @summary Delete a semester
+ */
+export const DeleteSemesterParams = zod.object({
   "id": zod.coerce.number()
 })
 

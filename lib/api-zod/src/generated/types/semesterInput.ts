@@ -6,8 +6,9 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface BucketListItemInput {
-  text: string;
-  targetDate?: string;
-  completedAt?: string;
+export interface SemesterInput {
+  name: string;
+  startDate?: string;
+  endDate?: string;
+  status?: string;
 }

@@ -6,13 +6,14 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface BucketListItem {
+export interface Semester {
   id: number;
-  text: string;
-  checked: boolean;
+  name: string;
   /** @nullable */
-  targetDate?: string | null;
+  startDate?: string | null;
   /** @nullable */
-  completedAt?: string | null;
+  endDate?: string | null;
+  status: string;
   createdAt: string;
+  updatedAt?: string;
 }

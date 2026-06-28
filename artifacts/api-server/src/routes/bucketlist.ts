@@ -17,8 +17,8 @@ router.get("/bucketlist", async (req, res) => {
 
 router.post("/bucketlist", async (req, res) => {
   try {
-    const { text, targetDate } = req.body;
-    const [item] = await db.insert(bucketListTable).values({ text, targetDate, checked: false }).returning();
+    const { text, targetDate, completedAt } = req.body;
+    const [item] = await db.insert(bucketListTable).values({ text, targetDate, completedAt, checked: false }).returning();
     res.status(201).json(item);
   } catch (err) {
     req.log.error(err);
@@ -28,11 +28,17 @@ router.post("/bucketlist", async (req, res) => {
 
 router.patch("/bucketlist/:id", async (req, res) => {
   try {
-    const { text, checked, targetDate } = req.body;
+    const { text, checked, targetDate, completedAt } = req.body;
     const updates: Record<string, unknown> = {};
     if (text !== undefined) updates.text = text;
-    if (checked !== undefined) updates.checked = checked;
+    if (checked !== undefined) {
+      updates.checked = checked;
+      if (checked && completedAt === undefined) {
+        updates.completedAt = new Date().toISOString();
+      }
+    }
     if (targetDate !== undefined) updates.targetDate = targetDate;
+    if (completedAt !== undefined) updates.completedAt = completedAt;
     const [item] = await db.update(bucketListTable).set(updates).where(eq(bucketListTable.id, Number(req.params.id))).returning();
     if (!item) return res.status(404).json({ error: "Not found" });
     res.json(item);

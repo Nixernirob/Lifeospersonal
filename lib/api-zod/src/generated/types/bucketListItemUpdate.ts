@@ -10,4 +10,5 @@ export interface BucketListItemUpdate {
   text?: string;
   checked?: boolean;
   targetDate?: string;
+  completedAt?: string;
 }

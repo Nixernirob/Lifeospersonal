@@ -13,5 +13,6 @@ export interface MemoryUpdate {
   location?: string;
   semester?: number;
   tags?: string[];
+  images?: string[];
   imageUrl?: string;
 }

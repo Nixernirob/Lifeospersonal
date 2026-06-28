@@ -10,3 +10,4 @@ export * from "./friends";
 export * from "./journal";
 export * from "./mood";
 export * from "./future-letters";
+export * from "./semesters";

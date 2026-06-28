@@ -13,6 +13,7 @@ import journalRouter from "./journal";
 import moodRouter from "./mood";
 import futureLettersRouter from "./future-letters";
 import statsRouter from "./stats";
+import semestersRouter from "./semesters";
 
 const router: IRouter = Router();
 
@@ -30,5 +31,6 @@ router.use(journalRouter);
 router.use(moodRouter);
 router.use(futureLettersRouter);
 router.use(statsRouter);
+router.use(semestersRouter);
 
 export default router;

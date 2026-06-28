@@ -7,6 +7,7 @@ export const bucketListTable = pgTable("bucket_list", {
   text: text("text").notNull(),
   checked: boolean("checked").notNull().default(false),
   targetDate: text("target_date"),
+  completedAt: text("completed_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

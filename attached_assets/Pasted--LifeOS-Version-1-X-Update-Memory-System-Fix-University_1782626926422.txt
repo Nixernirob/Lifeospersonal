@@ -1,0 +1,564 @@
+# LifeOS - Version 1.X Update
+
+# Memory System Fix + University Timeline + Assignment Improvements + Auto Startup
+
+## IMPORTANT
+
+This update modifies multiple core systems. Existing features must NOT break. Preserve all current UI, workflows, database structure (unless explicitly mentioned), animations, and APIs.
+
+---
+
+# 1. Memory System Fix (HIGH PRIORITY)
+
+## Problem
+
+New memories are no longer being saved correctly.
+
+## Required Fix
+
+Investigate entire memory pipeline.
+
+Check:
+
+- frontend form
+- validation
+- API request
+- backend route
+- database insert
+- ORM query
+- cache
+- realtime update
+- refresh logic
+
+Verify:
+
+- manual memory
+- AI-created memory
+- edited memory
+- deleted memory
+- pinned memory
+- favorite memory
+
+Requirements
+
+- Save instantly
+- No duplicate records
+- Show success/error toast
+- Optimistic UI update
+- Refresh automatically after save
+- Memory must remain after page reload
+- No console errors
+- No silent failures
+
+If validation fails, display exact reason.
+
+---
+
+# 2. Assignment Deadline Countdown
+
+## New Feature
+
+Every assignment should support optional deadline.
+
+New fields
+
+```
+Deadline
+Date
+Time
+Timezone
+```
+
+Example
+
+```
+Math Assignment
+
+Deadline
+
+15 Aug 2026
+11:59 PM
+```
+
+---
+
+## Countdown
+
+Show live countdown.
+
+Examples
+
+```
+12 days left
+
+5 hours left
+
+32 minutes left
+
+Deadline Passed
+```
+
+Countdown updates every second.
+
+After deadline
+
+- turn countdown red
+- show "Deadline Passed"
+- keep assignment
+- don't delete automatically
+
+---
+
+## Sorting
+
+New sort options
+
+- Nearest deadline
+- Furthest deadline
+- Overdue first
+
+---
+
+## Dashboard
+
+Dashboard should show
+
+Upcoming Deadlines
+
+Example
+
+```
+Assignment
+
+Physics
+
+2 days left
+
+Math
+
+5 hours left
+
+English
+
+Tomorrow
+```
+
+---
+
+## Notifications
+
+Future-ready architecture.
+
+Store
+
+```
+deadline
+
+notification_enabled
+
+notification_time
+```
+
+No notification system yet.
+
+Only database + API support.
+
+---
+
+# 3. Bucket List Completion Date
+
+Currently bucket list only stores completion state.
+
+Add
+
+```
+Completed Date
+Completed Time
+```
+
+When marking complete
+
+Automatically save
+
+- date
+- time
+
+Example
+
+```
+Visit Japan
+
+Completed
+
+21 June 2026
+
+8:35 PM
+```
+
+If marked incomplete
+
+Ask
+
+```
+Keep completion history?
+
+Yes
+No
+```
+
+If No
+
+Remove completion date.
+
+---
+
+## Bucket List Timeline
+
+Add filter
+
+- Completed Today
+- This Week
+- This Month
+- This Year
+
+---
+
+# 4. University Semester Tracking
+
+Current university module too simple.
+
+Replace with timeline-based semester system.
+
+---
+
+## Semester Model
+
+Each semester stores
+
+```
+Semester Name
+
+Start Date
+
+End Date
+
+Status
+```
+
+Example
+
+```
+Semester 1
+
+Start
+
+1 Jan 2026
+
+End
+
+30 Jun 2026
+
+Completed
+```
+
+```
+Semester 2
+
+Start
+
+1 Jul 2026
+
+End
+
+31 Dec 2026
+
+Current
+```
+
+Later
+
+```
+Semester 3
+
+Start
+
+1 Jan 2027
+
+End
+
+30 Jun 2027
+
+Upcoming
+```
+
+---
+
+## Rules
+
+Only one semester can be Current.
+
+When selecting next semester
+
+Previous semester
+
+Automatically becomes
+
+Completed.
+
+Current semester becomes selected automatically.
+
+Store history permanently.
+
+Never overwrite previous semester dates.
+
+---
+
+## Timeline
+
+Example
+
+```
+Semester 1
+
+Completed
+
+Jan-Jun 2026
+
+↓
+
+Semester 2
+
+Current
+
+Jul-Dec 2026
+
+↓
+
+Semester 3
+
+Upcoming
+```
+
+---
+
+## Progress
+
+Display
+
+```
+Current Semester
+
+Semester 2
+
+Started
+
+15 days ago
+
+Ends in
+
+138 days
+```
+
+Progress bar
+
+```
+████████░░░░░░
+
+43%
+```
+
+Calculated automatically.
+
+---
+
+## Database
+
+Suggested model
+
+```
+Semester
+
+id
+
+name
+
+start_date
+
+end_date
+
+status
+
+created_at
+
+updated_at
+```
+
+Status
+
+```
+CURRENT
+
+COMPLETED
+
+UPCOMING
+```
+
+---
+
+# 5. Auto Startup Script
+
+Create startup scripts so entire project starts with one click.
+
+---
+
+## Windows Batch
+
+Create
+
+```
+start-lifeos.bat
+```
+
+Responsibilities
+
+- detect project root
+- open terminal windows
+- start backend
+- start frontend
+- wait for servers
+- keep terminals open
+- display startup status
+- stop if dependency missing
+
+Should print
+
+```
+Starting Backend...
+
+Backend Running
+
+Starting Frontend...
+
+Frontend Running
+
+LifeOS Ready
+```
+
+---
+
+## Python Launcher
+
+Also create
+
+```
+start_lifeos.py
+```
+
+Purpose
+
+Cross-platform launcher.
+
+Responsibilities
+
+- detect OS
+- verify Python
+- verify Node.js
+- verify package manager
+- verify dependencies
+- install missing packages (optional prompt)
+- start backend
+- start frontend
+- monitor both processes
+- show colored logs
+- Ctrl+C stops everything cleanly
+
+Should detect
+
+```
+Node missing
+
+Python missing
+
+pnpm missing
+
+npm missing
+
+.env missing
+
+Port already in use
+
+Dependency missing
+```
+
+Show readable fixes.
+
+---
+
+# 6. Error Handling
+
+Improve entire app.
+
+Never fail silently.
+
+Every failed operation should show
+
+- error toast
+- detailed console log
+- backend log
+- API response
+
+---
+
+# 7. Testing
+
+Verify
+
+Memory
+
+- create
+- edit
+- delete
+- reload
+- persistence
+
+Assignment
+
+- countdown
+- timezone
+- overdue
+
+Bucket List
+
+- completion date
+- history
+- filters
+
+University
+
+- semester history
+- switching
+- timeline
+- progress
+
+Startup
+
+- backend starts
+- frontend starts
+- missing dependency detection
+- graceful shutdown
+
+---
+
+# Requirements
+
+- Keep current glassmorphism UI.
+- Keep existing animations.
+- Keep responsive layout.
+- No breaking changes.
+- Preserve backward compatibility for existing data.
+- Database migrations must migrate old records automatically.
+- Write clean, modular, documented code.
+- Follow current project architecture.
+- Avoid duplicate logic.
+- Handle edge cases.
+- Production-ready implementation only.

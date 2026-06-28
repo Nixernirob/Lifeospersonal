@@ -62,6 +62,9 @@ import type {
   Project,
   ProjectInput,
   ProjectUpdate,
+  Semester,
+  SemesterInput,
+  SemesterUpdate,
   Stats,
   Subject,
   SubjectInput,
@@ -3953,6 +3956,296 @@ export const useDeleteFutureLetter = <TError = ErrorType<unknown>,
         TContext
       > => {
       return useMutation(getDeleteFutureLetterMutationOptions(options));
+    }
+
+export const getListSemestersUrl = () => {
+
+
+
+
+  return `/api/semesters`
+}
+
+/**
+ * @summary List all semesters
+ */
+export const listSemesters = async ( options?: RequestInit): Promise<Semester[]> => {
+
+  return customFetch<Semester[]>(getListSemestersUrl(),
+  {
+    ...options,
+    method: 'GET'
+
+
+  }
+);}
+
+
+
+
+
+export const getListSemestersQueryKey = () => {
+    return [
+    `/api/semesters`
+    ] as const;
+    }
+
+
+export const getListSemestersQueryOptions = <TData = Awaited<ReturnType<typeof listSemesters>>, TError = ErrorType<unknown>>( options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listSemesters>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getListSemestersQueryKey();
+
+
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof listSemesters>>> = ({ signal }) => listSemesters({ signal, ...requestOptions });
+
+
+
+
+
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof listSemesters>>, TError, TData> & { queryKey: QueryKey }
+}
+
+export type ListSemestersQueryResult = NonNullable<Awaited<ReturnType<typeof listSemesters>>>
+export type ListSemestersQueryError = ErrorType<unknown>
+
+
+/**
+ * @summary List all semesters
+ */
+
+export function useListSemesters<TData = Awaited<ReturnType<typeof listSemesters>>, TError = ErrorType<unknown>>(
+  options?: { query?:UseQueryOptions<Awaited<ReturnType<typeof listSemesters>>, TError, TData>, request?: SecondParameter<typeof customFetch>}
+
+ ):  UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+
+  const queryOptions = getListSemestersQueryOptions(options)
+
+  const query = useQuery(queryOptions) as  UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+
+
+
+
+
+
+export const getCreateSemesterUrl = () => {
+
+
+
+
+  return `/api/semesters`
+}
+
+/**
+ * @summary Create a semester
+ */
+export const createSemester = async (semesterInput: SemesterInput, options?: RequestInit): Promise<Semester> => {
+
+  return customFetch<Semester>(getCreateSemesterUrl(),
+  {
+    ...options,
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      semesterInput,)
+  }
+);}
+
+
+
+
+export const getCreateSemesterMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createSemester>>, TError,{data: BodyType<SemesterInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof createSemester>>, TError,{data: BodyType<SemesterInput>}, TContext> => {
+
+const mutationKey = ['createSemester'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createSemester>>, {data: BodyType<SemesterInput>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createSemester(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateSemesterMutationResult = NonNullable<Awaited<ReturnType<typeof createSemester>>>
+    export type CreateSemesterMutationBody = BodyType<SemesterInput>
+    export type CreateSemesterMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Create a semester
+ */
+export const useCreateSemester = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createSemester>>, TError,{data: BodyType<SemesterInput>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof createSemester>>,
+        TError,
+        {data: BodyType<SemesterInput>},
+        TContext
+      > => {
+      return useMutation(getCreateSemesterMutationOptions(options));
+    }
+
+export const getUpdateSemesterUrl = (id: number,) => {
+
+
+
+
+  return `/api/semesters/${id}`
+}
+
+/**
+ * @summary Update a semester
+ */
+export const updateSemester = async (id: number,
+    semesterUpdate: SemesterUpdate, options?: RequestInit): Promise<Semester> => {
+
+  return customFetch<Semester>(getUpdateSemesterUrl(id),
+  {
+    ...options,
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
+    body: JSON.stringify(
+      semesterUpdate,)
+  }
+);}
+
+
+
+
+export const getUpdateSemesterMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSemester>>, TError,{id: number;data: BodyType<SemesterUpdate>}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateSemester>>, TError,{id: number;data: BodyType<SemesterUpdate>}, TContext> => {
+
+const mutationKey = ['updateSemester'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateSemester>>, {id: number;data: BodyType<SemesterUpdate>}> = (props) => {
+          const {id,data} = props ?? {};
+
+          return  updateSemester(id,data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateSemesterMutationResult = NonNullable<Awaited<ReturnType<typeof updateSemester>>>
+    export type UpdateSemesterMutationBody = BodyType<SemesterUpdate>
+    export type UpdateSemesterMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Update a semester
+ */
+export const useUpdateSemester = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateSemester>>, TError,{id: number;data: BodyType<SemesterUpdate>}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof updateSemester>>,
+        TError,
+        {id: number;data: BodyType<SemesterUpdate>},
+        TContext
+      > => {
+      return useMutation(getUpdateSemesterMutationOptions(options));
+    }
+
+export const getDeleteSemesterUrl = (id: number,) => {
+
+
+
+
+  return `/api/semesters/${id}`
+}
+
+/**
+ * @summary Delete a semester
+ */
+export const deleteSemester = async (id: number, options?: RequestInit): Promise<void> => {
+
+  return customFetch<void>(getDeleteSemesterUrl(id),
+  {
+    ...options,
+    method: 'DELETE'
+
+
+  }
+);}
+
+
+
+
+export const getDeleteSemesterMutationOptions = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSemester>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+): UseMutationOptions<Awaited<ReturnType<typeof deleteSemester>>, TError,{id: number}, TContext> => {
+
+const mutationKey = ['deleteSemester'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteSemester>>, {id: number}> = (props) => {
+          const {id} = props ?? {};
+
+          return  deleteSemester(id,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeleteSemesterMutationResult = NonNullable<Awaited<ReturnType<typeof deleteSemester>>>
+
+    export type DeleteSemesterMutationError = ErrorType<unknown>
+
+    /**
+ * @summary Delete a semester
+ */
+export const useDeleteSemester = <TError = ErrorType<unknown>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteSemester>>, TError,{id: number}, TContext>, request?: SecondParameter<typeof customFetch>}
+ ): UseMutationResult<
+        Awaited<ReturnType<typeof deleteSemester>>,
+        TError,
+        {id: number},
+        TContext
+      > => {
+      return useMutation(getDeleteSemesterMutationOptions(options));
     }
 
 export const getGetStatsUrl = () => {

@@ -1,0 +1,294 @@
+# UI Theme Redesign (Premium Light Mode)
+
+Replace current dark theme with premium light theme.
+
+Goal:
+
+Create clean, modern, premium UI similar to Apple. Focus readability, whitespace, subtle depth, elegant animations.
+
+Do NOT simply invert colors. Redesign entire color system.
+
+## Design Direction
+
+Inspired by
+
+- Apple
+- Linear
+- Notion
+- Arc Browser
+- Raycast Website
+
+Feel
+
+- Premium
+- Minimal
+- Elegant
+- Soft
+- Modern
+- Professional
+
+---
+
+## Color Palette
+
+Primary Background
+
+```
+#FFFFFF
+```
+
+Secondary Background
+
+```
+#F7F7F8
+```
+
+Cards
+
+```
+#FFFFFF
+```
+
+Section Background
+
+```
+#F5F5F7
+```
+
+Primary Text
+
+```
+#1D1D1F
+```
+
+Secondary Text
+
+```
+#6E6E73
+```
+
+Border
+
+```
+#E5E5E7
+```
+
+Accent
+
+Keep existing brand accent if good. Otherwise use premium blue.
+
+```
+#0071E3
+```
+
+Success
+
+```
+#34C759
+```
+
+Warning
+
+```
+#FF9F0A
+```
+
+Danger
+
+```
+#FF3B30
+```
+
+---
+
+## Glassmorphism
+
+Keep glass effect.
+
+Reduce blur strength.
+
+Avoid overly transparent cards.
+
+Use soft shadows instead.
+
+Example
+
+- blur 12-20px
+- opacity 85-95%
+- subtle border
+- soft shadow
+
+Cards should feel like floating paper, not frosted glass everywhere.
+
+---
+
+## Shadows
+
+Replace heavy shadows.
+
+Use soft premium shadows.
+
+No harsh black shadows.
+
+---
+
+## Border Radius
+
+Use consistent radius.
+
+Buttons
+
+12px
+
+Cards
+
+16-20px
+
+Inputs
+
+12px
+
+Modals
+
+20-24px
+
+---
+
+## Typography
+
+Increase readability.
+
+Dark text on white background.
+
+Good spacing.
+
+Apple-style hierarchy.
+
+More whitespace.
+
+---
+
+## Buttons
+
+Primary
+
+Premium blue with smooth hover.
+
+Secondary
+
+White background.
+
+Light border.
+
+Dark text.
+
+Danger
+
+Soft red.
+
+Not overly saturated.
+
+---
+
+## Inputs
+
+White background.
+
+Thin gray border.
+
+Blue focus ring.
+
+Smooth transition.
+
+No dark input fields.
+
+---
+
+## Dashboard
+
+Use clean white cards.
+
+Soft gray sections.
+
+More spacing between widgets.
+
+Better visual hierarchy.
+
+Less visual clutter.
+
+---
+
+## Sidebar
+
+Light background.
+
+Selected item
+
+Soft blue highlight.
+
+Hover
+
+Light gray.
+
+Icons
+
+Dark gray.
+
+---
+
+## Tables
+
+White rows.
+
+Soft borders.
+
+Light hover.
+
+Readable spacing.
+
+---
+
+## Charts
+
+Match light theme.
+
+No dark backgrounds.
+
+---
+
+## Animations
+
+Keep all current animations.
+
+Make transitions smoother.
+
+No flashy effects.
+
+Duration
+
+200-300ms
+
+Ease
+
+ease-in-out
+
+---
+
+## Overall Goal
+
+Website should feel premium from first impression.
+
+Think Apple, not generic admin dashboard.
+
+Prioritize
+
+- readability
+- whitespace
+- consistency
+- elegance
+- subtle depth
+- premium polish
+
+Do NOT change functionality.
+
+Only redesign visual system while preserving existing components, workflows, responsiveness, animations, APIs, database, routing.

@@ -49,7 +49,7 @@ function NoteFormModal({ note, groups, onClose }: { note?: any; groups: string[]
       description: form.description,
       url: form.url,
       group: form.group,
-      tags: form.tags.split(",").map(t => t.trim()).filter(Boolean),
+      tags: form.tags.split(",").map((t: string) => t.trim()).filter(Boolean),
       imageUrl: imageUrl ?? undefined,
     };
     if (note) {

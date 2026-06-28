@@ -12,4 +12,5 @@ export interface NoteUpdate {
   url?: string;
   group?: string;
   tags?: string[];
+  imageUrl?: string;
 }

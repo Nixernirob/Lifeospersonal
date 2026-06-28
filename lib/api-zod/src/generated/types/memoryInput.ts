@@ -13,5 +13,6 @@ export interface MemoryInput {
   location?: string;
   semester?: number;
   tags?: string[];
+  images?: string[];
   imageUrl?: string;
 }

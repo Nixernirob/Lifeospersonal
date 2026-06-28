@@ -21,6 +21,7 @@ tags:
   - name: mood
   - name: stats
   - name: futureLetters
+  - name: semesters
 
 paths:
   /healthz:
@@ -957,6 +958,75 @@ paths:
         "204":
           description: Deleted
 
+  # SEMESTERS
+  /semesters:
+    get:
+      operationId: listSemesters
+      tags: [semesters]
+      summary: List all semesters
+      responses:
+        "200":
+          description: List of semesters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Semester"
+    post:
+      operationId: createSemester
+      tags: [semesters]
+      summary: Create a semester
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SemesterInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Semester"
+
+  /semesters/{id}:
+    patch:
+      operationId: updateSemester
+      tags: [semesters]
+      summary: Update a semester
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SemesterUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Semester"
+    delete:
+      operationId: deleteSemester
+      tags: [semesters]
+      summary: Delete a semester
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: integer }
+      responses:
+        "204":
+          description: Deleted
+
   # STATS
   /stats:
     get:
@@ -1005,6 +1075,7 @@ components:
         location: { type: ["string", "null"] }
         semester: { type: ["integer", "null"] }
         tags: { type: array, items: { type: string } }
+        images: { type: array, items: { type: string } }
         imageUrl: { type: ["string", "null"] }
         createdAt: { type: string }
 
@@ -1018,6 +1089,7 @@ components:
         location: { type: string }
         semester: { type: integer }
         tags: { type: array, items: { type: string } }
+        images: { type: array, items: { type: string } }
         imageUrl: { type: string }
 
     MemoryUpdate:
@@ -1029,6 +1101,7 @@ components:
         location: { type: string }
         semester: { type: integer }
         tags: { type: array, items: { type: string } }
+        images: { type: array, items: { type: string } }
         imageUrl: { type: string }
 
     Note:
@@ -1052,6 +1125,7 @@ components:
         url: { type: string }
         group: { type: string }
         tags: { type: array, items: { type: string } }
+        imageUrl: { type: string }
 
     NoteUpdate:
       type: object
@@ -1061,6 +1135,7 @@ components:
         url: { type: string }
         group: { type: string }
         tags: { type: array, items: { type: string } }
+        imageUrl: { type: string }
 
     Subject:
       type: object
@@ -1247,6 +1322,7 @@ components:
         text: { type: string }
         checked: { type: boolean }
         targetDate: { type: ["string", "null"] }
+        completedAt: { type: ["string", "null"] }
         createdAt: { type: string }
 
     BucketListItemInput:
@@ -1255,6 +1331,7 @@ components:
       properties:
         text: { type: string }
         targetDate: { type: string }
+        completedAt: { type: string }
 
     BucketListItemUpdate:
       type: object
@@ -1262,6 +1339,36 @@ components:
         text: { type: string }
         checked: { type: boolean }
         targetDate: { type: string }
+        completedAt: { type: string }
+
+    Semester:
+      type: object
+      required: [id, name, status, createdAt]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        startDate: { type: ["string", "null"] }
+        endDate: { type: ["string", "null"] }
+        status: { type: string }
+        createdAt: { type: string }
+        updatedAt: { type: string }
+
+    SemesterInput:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string }
+        startDate: { type: string }
+        endDate: { type: string }
+        status: { type: string }
+
+    SemesterUpdate:
+      type: object
+      properties:
+        name: { type: string }
+        startDate: { type: string }
+        endDate: { type: string }
+        status: { type: string }
 
     Friend:
       type: object

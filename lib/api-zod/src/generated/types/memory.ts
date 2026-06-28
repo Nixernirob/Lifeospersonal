@@ -17,6 +17,7 @@ export interface Memory {
   /** @nullable */
   semester?: number | null;
   tags?: string[];
+  images?: string[];
   /** @nullable */
   imageUrl?: string | null;
   createdAt: string;

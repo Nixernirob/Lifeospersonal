@@ -20,6 +20,7 @@ export interface Memory {
   /** @nullable */
   semester?: number | null;
   tags?: string[];
+  images?: string[];
   /** @nullable */
   imageUrl?: string | null;
   createdAt: string;
@@ -32,6 +33,7 @@ export interface MemoryInput {
   location?: string;
   semester?: number;
   tags?: string[];
+  images?: string[];
   imageUrl?: string;
 }
 
@@ -42,6 +44,7 @@ export interface MemoryUpdate {
   location?: string;
   semester?: number;
   tags?: string[];
+  images?: string[];
   imageUrl?: string;
 }
 
@@ -63,6 +66,7 @@ export interface NoteInput {
   url?: string;
   group: string;
   tags?: string[];
+  imageUrl?: string;
 }
 
 export interface NoteUpdate {
@@ -71,6 +75,7 @@ export interface NoteUpdate {
   url?: string;
   group?: string;
   tags?: string[];
+  imageUrl?: string;
 }
 
 export interface Subject {
@@ -251,18 +256,48 @@ export interface BucketListItem {
   checked: boolean;
   /** @nullable */
   targetDate?: string | null;
+  /** @nullable */
+  completedAt?: string | null;
   createdAt: string;
 }
 
 export interface BucketListItemInput {
   text: string;
   targetDate?: string;
+  completedAt?: string;
 }
 
 export interface BucketListItemUpdate {
   text?: string;
   checked?: boolean;
   targetDate?: string;
+  completedAt?: string;
+}
+
+export interface Semester {
+  id: number;
+  name: string;
+  /** @nullable */
+  startDate?: string | null;
+  /** @nullable */
+  endDate?: string | null;
+  status: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface SemesterInput {
+  name: string;
+  startDate?: string;
+  endDate?: string;
+  status?: string;
+}
+
+export interface SemesterUpdate {
+  name?: string;
+  startDate?: string;
+  endDate?: string;
+  status?: string;
 }
 
 export interface Friend {

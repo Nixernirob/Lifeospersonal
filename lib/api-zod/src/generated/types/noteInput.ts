@@ -12,4 +12,5 @@ export interface NoteInput {
   url?: string;
   group: string;
   tags?: string[];
+  imageUrl?: string;
 }

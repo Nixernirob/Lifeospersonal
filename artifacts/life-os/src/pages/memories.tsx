@@ -96,7 +96,7 @@ function MemoryFormModal({ memory, onClose }: { memory?: any; onClose: () => voi
       date: form.date,
       location: form.location,
       semester: form.semester ? Number(form.semester) : undefined,
-      tags: form.tags.split(",").map(t => t.trim()).filter(Boolean),
+      tags: form.tags.split(",").map((t: string) => t.trim()).filter(Boolean),
       images,
     };
     if (memory) {
